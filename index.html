@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="https://img2.pic.in.th/ttr.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TATAROS | 168</title>
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=WindSong:wght@500&display=swap" rel="stylesheet">
+    <a href="https://www.facebook.com/darkg.prox" target="_blank" class="credits-link">
+    Crafted by <strong>SWYFT 171</strong>
+</a>
+            
+    
+    <style>
+        /* 1. Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        @keyframes blink {
+    0%, 100% { 
+        opacity: 1; 
+        text-shadow: 0 0 15px rgba(255,255,255,0.8); 
+    }
+    50% { 
+        opacity: 0.3; /* จางลงเหลือ 30% */
+        text-shadow: 0 0 5px rgba(255,255,255,0.2); 
+    }
+}
+
+    /* 1. ปรับพื้นหลังให้มืดและขับสีทอง */
+body {
+    background-color: #000;
+    background-image: radial-gradient(circle, rgba(184, 134, 11, 0.1) 0%, rgba(0, 0, 0, 1) 80%), url('https://img2.pic.in.th/655261258_896597270043992_7434535868983744998_n.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+        /* 2. Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .sss-icon {
+            border: 1px solid #fff;
+            padding: 2px 6px;
+            font-size: 10px;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        /* 2. จัดการ Layout หลักให้ล็อคกึ่งกลางหน้าจอเสมอ */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* ดึงทุกอย่างมากึ่งกลางแนวตั้ง */
+    align-items: center;    /* ดึงทุกอย่างมากึ่งกลางแนวนอน */
+    position: relative;
+    z-index: 2;
+}
+
+       /* Label เล็กๆ ด้านบน */
+.top-label {
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: #c0c0c0; /* สีเงิน Silver */
+    margin-top: 10px;  /* ระยะห่างจาก TATAROS */
+    margin-bottom: 0; 
+    opacity: 0.8;
+    z-index: 10;
+}
+
+
+/* ปรับสะเก็ดไฟให้เป็นสีทอง */
+.spark {
+    background: #f7ef8a;
+    box-shadow: 0 0 10px #cfb53b, 0 0 20px #aa771c;
+}
+
+   /* --- ปรับปรุงการจัดวางให้คงที่ทุกหน้าจอ และคุมโทนเงิน-ทอง --- */
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* จัดให้อยู่กึ่งกลางแนวตั้งเสมอ */
+    align-items: center;    /* จัดให้อยู่กึ่งกลางแนวนอนเสมอ */
+    position: relative;
+    height: 100vh;
+}
+
+/* 3. ชื่อ TATAROS สีทอง Metallic */
+.title-triples {
+    font-size: 65px;
+    font-weight: 900;
+    letter-spacing: 15px;
+    margin: 0;
+    /* ไล่เฉดสีเนื้อโลหะทอง */
+    background: linear-gradient(to bottom, #ffffff 20%, #ffffff 45%, #ffffff 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px #ffffff);
+    animation: gold-glow 3s ease-in-out infinite;
+}
+
+/* 4. ปุ่มกดสีทองหรู */
+.cta-button {
+    margin-top: 40px; /* ระยะห่างจากชื่อ */
+    background: linear-gradient(145deg, #d4af37, #aa771c);
+    border: 1px solid #f7ef8a;
+    padding: 14px 70px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+    filter: brightness(1.2);
+}
+
+/* 5. จัดการรูปตัวละคร/มังกร ให้อยู่ด้านหลังและไม่ขยับตำแหน่ง */
+.dragon-rotating-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; /* ปรับขนาดตามความเหมาะสม */
+    height: 600px;
+    z-index: -1; /* ส่งไปอยู่หลังสุด */
+    pointer-events: none;
+}
+
+.dragon-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img2.pic.in.th/ttr.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: floating 5s ease-in-out infinite; /* ลอยเบาๆ แทนการหมุน */
+    opacity: 0.7;
+}
+
+/* Animation แสงเงาและลอยตัว */
+@keyframes gold-glow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); }
+    50% { filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8)); }
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+        /* --- Music Widget Style (จาก sss.html) --- */
+.music-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; /* ย้ายมาด้านขวา */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.music-widget:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.15); }
+.album-art {
+    width: 45px; height: 45px;
+    background: url('https://img2.pic.in.th/ttr.png') center/cover;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+.track-info { display: flex; flex-direction: column; }
+.track-name { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+.track-sub { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.play-icon { font-size: 16px; color: #fff; margin-left: 5px; }
+
+/* Effect รูปหมุนตอนเล่นเพลง */
+@keyframes rotateArt {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+        /* 5. Footer Credit */
+        .credits {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .credits strong {
+            color: #fff;
+        }
+
+        /* ส่วนรูปตรงกลางที่หมุนพลิกกลับด้าน */
+.dragon-rotating-container {
+    width: 400px; 
+    height: 400px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 1000px; /* เพิ่มมิติความลึกสำหรับการหมุน 3D */
+    z-index: 1;
+}
+
+/* --- ส่วนที่แก้ไข: ยกเลิกการหมุนและทำให้รูปนิ่งแต่เท่ --- */
+
+.dragon-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://img1.pic.in.th/images/Gemini_Generated_Image_ahwvgyahwvgyahwv.png'); 
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* 1. ลบ flipBackAndForth ออก และใส่ floating แทน */
+    animation: floating 4s ease-in-out infinite; 
+    
+    /* 2. เพิ่มเงาให้ตัวละครดูเด่นออกมาจากพื้นหลัง */
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1)); 
+    
+    /* 3. มั่นใจว่าไม่มีการหมุนค้างอยู่ */
+    transform: rotateY(0deg); 
+}
+
+/* ตรวจสอบว่า main หรือตัวที่คลุมปุ่มอยู่มีโค้ดนี้ */
+main {
+    position: relative; 
+    height: 100vh; /* ต้องมีระบุความสูงให้ชัดเจน */
+    width: 100%;
+}
+
+/* Triple S (ลายมือ): ปรับให้ลอยแยกออกมาเพื่อขยับตำแหน่งได้อิสระ */
+.title-script {
+    font-family: 'WindSong', cursive;
+    font-size: 200px;
+    color: rgb(255, 255, 255);
+    line-height: 1;
+    z-index: 1;
+
+    position: absolute; /* ทำให้ลอยแยกออกมา */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* ยิ่งตัวเลขน้อยลง Triple S จะยิ่งขยับขึ้นสูง */
+    top: 280px; /* ลองปรับจาก 280px เป็น 200px หรือเลขที่น้อยกว่านี้ตามต้องการ */
+}
+
+.credits-link {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* ลบกรอบและพื้นหลังออกให้เนียน */
+    background: none;
+    border: none;
+    
+    /* ตั้งค่าเริ่มต้นให้ดูจางๆ เนียนไปกับภาพพื้นหลัง */
+    color: rgba(255, 255, 255, 0.4); 
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    z-index: 1000;
+    
+    transition: all 0.4s ease; /* ให้การสว่างขึ้นดูนุ่มนวล */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.credits-link strong {
+    color: rgba(255, 255, 255, 0.5); /* ชื่อคนทำในตอนแรกจะจางๆ */
+    transition: all 0.4s ease;
+}
+
+.heart {
+    filter: grayscale(100%); /* ทำให้หัวใจดูจางในตอนแรก */
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+/* เอฟเฟกต์เมื่อเอาเมาส์ไปชี้ (Hover) */
+.credits-link:hover {
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    
+    /* เพิ่มบรรทัดนี้เพื่อให้ปุ่มอยู่กึ่งกลางเหมือนเดิม ไม่ขยับไปซ้าย */
+    transform: translateX(-50%); 
+}
+
+.credits-link:hover strong {
+    color: #ffffff;
+}
+
+.credits-link:hover .heart {
+    filter: grayscale(0%); /* หัวใจกลับเป็นสีแดง */
+    opacity: 1;
+    transform: scale(1.2); /* ขยายหัวใจเล็กน้อย */
+}
+
+/* --- Fire Embers Effect (Diagonal) --- */
+.fire-particle {
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    width: 3px;
+    height: 3px;
+    background: linear-gradient(45deg, #ff4d00, #ffae00);
+    border-radius: 50%;
+    filter: blur(0.5px);
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 8px #ff4d00, 0 0 15px #ffae00;
+    opacity: 0;
+    /* ใช้ cubic-bezier เพื่อให้การตกดูมีน้ำหนัก */
+    animation: diagonalFall linear infinite;
+}
+
+@keyframes diagonalFall {
+    0% {
+        transform: translate(var(--start-x), var(--start-y)) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translate(calc(var(--start-x) + 20px), calc(var(--start-y) + 20px)) scale(1);
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        /* ตกเฉียงไปทางขวาล่าง */
+        transform: translate(calc(var(--start-x) + 600px), calc(var(--start-y) + 100vh)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* พื้นหลังมืดหลัง Popup */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* มืด 85% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* ให้อยู่เหนือทุกอย่าง */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease; /* ลดจาก 0.4s เหลือ 0.2s */
+}
+
+/* เมื่อสั่งเปิด Popup */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* กล่องเนื้อหา Popup */
+.modal-content {
+    background: #d4af37, #aa771c; /* สีม่วงเข้มๆ ตามรูป */
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    position: relative;
+    padding: 20px;
+    border: 1px solid #d4af37, #aa771c;
+    box-shadow: 0 0 30px #d4af37, #aa771c;
+    transform: scale(0.7);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* ลดจาก 0.4s เหลือ 0.2s */
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* ปุ่มกากบาทปิด */
+.close-btn {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+}
+
+/* รูปภาพใน Popup */
+.modal-image-container img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+
+/* ปุ่ม FACEBOOK */
+.modal-footer {
+    margin-top: 20px;
+}
+
+.discord-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.discord-btn:hover {
+    background: white;
+    color: #000;
+}
+
+* {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+    </style>
+</head>
+<body>
+
+    <div id="welcome-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div class="modal-image-container">
+            <img src="https://img2.pic.in.th/ttr.png" alt="Open Server Now">
+        </div>
+        <div class="modal-footer">
+            <a href="https://www.facebook.com/profile.php?id=100077878680394" target="_blank" class="discord-btn">FACEBOOK</a>
+        </div>
+    </div>
+</div>
+
+    <div class="spark-container">
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+</div>
+
+    <header>
+       <div class="logo">
+    <span style="color: #fff;">TATAROS</span> </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="tataros.html">TATAROS</a>
+        </nav>
+    </header>
+
+    <main>
+    
+    <div class="title-triples">TATAROS</div>
+
+    <div class="top-label">HOUSE OF TATAROS</div>
+
+    <div class="dragon-rotating-container">
+        <div class="dragon-image"></div>
+    </div>
+
+    <button class="cta-button" onclick="window.location.href='tataros.html'">List of names</button>
+</main>
+
+<div class="music-widget" id="musicToggle">
+    <div class="album-art" id="musicArt"></div>
+    <div class="track-info">
+        <div class="track-name">TATAROS</div>
+        <div class="track-sub">168</div>
+    </div>
+    <div class="play-icon" id="playStatus">▶</div>
+</div>
+
+<audio id="bgMusic" loop src="https://www.dropbox.com/scl/fi/7xa56mo552u72xuk4jeqo/TATAROS-Mv.mp3?rlkey=i2thg4kw1xplqx505bxy3ltif&st=fv83d7oa&raw=1"></audio>
+
+<script>
+    
+    // --- ระบบเล่นเพลง (Widget sss.html) ---//
+const audio = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+const playStatus = document.getElementById('playStatus');
+const musicArt = document.getElementById('musicArt');
+
+// ตั้งค่าความดัง 50%
+audio.volume = 0.5;
+
+function toggleMusic() {
+    if (audio.paused) {
+        audio.play().then(() => {
+            // ปรับ UI เมื่อเล่นเพลง
+            playStatus.innerText = '⏸';
+            musicArt.style.animation = 'rotateArt 4s linear infinite';
+            // หากมีส่วนแสดงชื่อเพลง (song-info) ให้ลบ Class ซ่อนออก
+            const songInfo = document.getElementById('song-info');
+            if(songInfo) songInfo.classList.remove('opacity-0', 'translate-x-5');
+        }).catch(error => {
+            console.log("Autoplay ถูกบล็อก: ต้องคลิกหน้าจอก่อน", error);
+        });
+    } else {
+        audio.pause();
+        // ปรับ UI เมื่อหยุดเพลง
+        playStatus.innerText = '▶';
+        musicArt.style.animation = 'none';
+        const songInfo = document.getElementById('song-info');
+        if(songInfo) songInfo.classList.add('opacity-0', 'translate-x-5');
+    }
+}
+
+// พยายามเล่นทันทีที่โหลดเสร็จ (Autoplay Policy)
+window.addEventListener('load', () => {
+    audio.play().then(() => {
+        // ถ้า Autoplay สำเร็จ (บาง Browser ยอม)
+        playStatus.innerText = '⏸';
+        musicArt.style.animation = 'rotateArt 4s linear infinite';
+    }).catch(() => {
+        // ถ้าโดนบล็อก ให้รอการคลิกครั้งแรกของ User เพื่อเริ่มเล่น
+        document.addEventListener('click', () => {
+            if (audio.paused) toggleMusic();
+        }, { once: true });
+    });
+});
+
+// เชื่อมต่อปุ่มเปิด-ปิด
+musicToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // ป้องกัน Event ไหลไปทับกับ click ของ document
+    toggleMusic();
+});
+
+    // เมื่อโหลดหน้าเว็บเสร็จ ให้สั่งเปิด Popup ทันที
+    window.onload = function() {
+        document.getElementById('welcome-modal').classList.add('active');
+    };
+
+    // ฟังก์ชันปิด Popup
+    function closeModal() {
+        document.getElementById('welcome-modal').classList.remove('active');
+    }
+    
+    // คลิกพื้นที่ด้านนอกเพื่อปิด
+    window.onclick = function(event) {
+        var modal = document.getElementById('welcome-modal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    function createFire() {
+    const particle = document.createElement('div');
+    particle.classList.add('fire-particle');
+    
+    // กำหนดจุดเริ่มต้นสุ่มเฉพาะมุมบนซ้าย (0 ถึง 60% ของความกว้างหน้าจอ)
+    // เพื่อให้มันตกเฉียงลงไปทางขวาได้ทั่วถึง
+    const startX = Math.random() * (window.innerWidth * 0.6) - 50;
+    const startY = Math.random() * -100; // เริ่มจากเหนือขอบจอขึ้นไป
+    
+    // สุ่มขนาดให้มีเล็กบ้างใหญ่บ้างดูสมจริง
+    const size = Math.random() * 3 + 1 + 'px';
+    // สุ่มเวลาตก (ความเร็วไม่เท่ากัน)
+    const duration = Math.random() * 4 + 3 + 's'; 
+    
+    particle.style.width = size;
+    particle.style.height = size;
+    
+    // ส่งค่าตำแหน่งเริ่มต้นไปยัง CSS Variable
+    particle.style.setProperty('--start-x', startX + 'px');
+    particle.style.setProperty('--start-y', startY + 'px');
+    particle.style.animationDuration = duration;
+    
+    // สุ่มดีเลย์เล็กน้อยเพื่อให้ไฟไม่ตกลงมาเป็นก้อนเดียว
+    particle.style.animationDelay = Math.random() * 2 + 's';
+
+    document.body.appendChild(particle);
+    
+    // ลบ Element ทิ้งเมื่อจบอนิเมชั่น
+    setTimeout(() => {
+        particle.remove();
+    }, (parseFloat(duration) + 2) * 1000);
+}
+
+// สร้างเศษไฟต่อเนื่อง (ปรับตัวเลข 200 เป็นน้อยลงถ้าต้องการให้ไฟเยอะขึ้น)
+setInterval(createFire, 200);
+
+(function() {
+    // 1. กันคลิกขวาและปุ่มลัด
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123 || 
+            (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || 
+            (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+
+    // 2. ฟังก์ชันตรวจจับ DevTools (ถ้าเปิด Console หน้าเว็บจะถูกล้างทันที)
+    setInterval(function() {
+        const threshold = 160;
+        if (window.outerWidth - window.innerWidth > threshold || 
+            window.outerHeight - window.innerHeight > threshold) {
+            document.body.innerHTML = "<h1>DETECTED: Access Denied</h1>";
+            window.location.href = "about:blank";
+        }
+    }, 500);
+
+    // 3. Infinite Debugger Loop (ถ้าเปิด Inspect จะติด Loop จน Browser ค้าง)
+    (function() {
+        (function d(i) {
+            if (("" + i / i).length !== 1 || i % 20 === 0) {
+                (function() {}.constructor("debugger")());
+            } else {
+                debugger;
+            }
+            d(++i);
+        })(0);
+    })();
+})();
+
+</script>
+
+</body>
+</html>

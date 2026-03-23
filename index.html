@@ -657,12 +657,18 @@ setInterval(createFire, 200);
     // 1. กันคลิกขวาและปุ่มลัด
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function(e) {
-        if (e.keyCode == 123 || 
-            (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || 
-            (e.ctrlKey && e.keyCode == 85)) {
-            return false;
-        }
-    };
+    // F12, Ctrl+Shift+I/J/C, Ctrl+U
+    if (e.keyCode == 123 || 
+    (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || 
+    (e.ctrlKey && [85, 83].includes(e.keyCode))) {
+    return false;
+}
+    // Win+S, Win+Shift+S (PrintScreen shortcuts)
+    if (e.metaKey && e.keyCode == 83) return false;
+    if (e.metaKey && e.shiftKey && e.keyCode == 83) return false;
+    // PrintScreen
+    if (e.keyCode == 44) return false;
+};
 
     // 2. ฟังก์ชันตรวจจับ DevTools (ถ้าเปิด Console หน้าเว็บจะถูกล้างทันที)
     setInterval(function() {

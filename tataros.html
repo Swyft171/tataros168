@@ -3,986 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TATAROS Member </title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;700;800&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>TATAROS 168</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://img2.pic.in.th/ttr.png">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: #fff; min-height: 100vh; overflow-x: hidden; }
-        
-        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)); z-index: -1; }
-        .header { padding: 60px 20px 20px; text-align: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 800; letter-spacing: 0.1em; }
-        .subtitle { font-size: 14px; letter-spacing: 4px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-top: 5px; }
-
-        /* Background Image overlay เหมือนรูปตัวอย่าง */
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('https://img1.pic.in.th/images/655261258_896597270043992_7434535868983744998_n.jpg'); /* ใส่รูปแก๊งคุณที่นี่ */
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
+        :root {
+            --gold: #c9a84c; --gold-light: #e8c96a; --gold-dark: #8a6a1e;
+            --red: #e03030; --blue: #3a7bd5; --pink: #c26a8a; --green: #22c55e;
+            --bg: #080809; --surface: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.07);
         }
-/* Stats Bar แก้ไขให้เรียง 5 กล่องเสมอและไม่ทับกัน */
-.stats-bar { 
-    display: grid; 
-    grid-template-columns: repeat(5, 1fr) !important; /* บังคับ 5 คอลัมน์ */
-    gap: 15px; 
-    max-width: 1200px; 
-    margin: 40px auto; 
-    padding: 0 20px;
-    position: relative;
-    z-index: 10;
-}
-
-.stat-card {
-    background: rgba(10, 10, 12, 0.8);
-    border-radius: 20px;
-    padding: 25px 10px;
-    text-align: center;
-    position: relative;
-    transition: 0.4s;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-/* แก้ไขขนาดตัวเลขไม่ให้ใหญ่เกินจนล้นกล่อง */
-.stat-number { 
-    font-size: 32px !important; 
-    font-weight: 800; 
-    margin-bottom: 5px;
-}
-.stat-card {
-    padding: 20px 5px; /* ลด Padding บน-ล่าง */
-}
-
-.stat-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    padding: 2px; /* ความหนาของขอบ */
-    background: linear-gradient(135deg, var(--glow-color), transparent, var(--glow-color));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.3;
-    transition: 0.5s;
-}
-
-.stat-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 10%; width: 80%; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--glow-color), transparent);
-}
-
-.stat-card:hover {
-    transform: translateY(-12px) scale(1.05);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.stat-card:hover::before {
-    opacity: 1;
-}
-.stat-number { 
-    font-size: 42px; 
-    font-weight: 800; 
-    display: block; 
-    font-family: 'Outfit', sans-serif;
-    color: #fff;
-    text-shadow: 0 0 20px var(--glow-color);
-    animation: pulseGlow 3s infinite;
-}
-
-.stat-label { 
-    font-size: 11px; 
-    font-weight: 700; 
-    color: rgba(255, 255, 255, 0.5); 
-    text-transform: uppercase; 
-    letter-spacing: 3px;
-    margin-top: 8px;
-}
-
-/* อนิเมชั่นตัวเลขเต้นเป็นจังหวะ */
-@keyframes pulseGlow {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.02); }
-}
-
-        /* Members Section */
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .rank-title { font-size: 20px; font-weight: 800; margin: 40px 0 20px; text-transform: uppercase; }
-        .rank-title span { color: rgba(255,255,255,0.3); font-size: 16px; margin-left: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 15px; }
-
-       /* --- Modern Social Card Style --- */
-.grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-    gap: 20px; 
-}
-
-/* --- Square Profile Style --- */
-.member-card { 
-    position: relative;
-    background: #0d0d0f; 
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row; 
-    align-items: center;
-    gap: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.member-card:hover {
-    transform: translateY(-10px);
-    background: #141417;
-    border-color: var(--accent-color);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-color);
-}
-
-/* ส่วนของปุ่ม Facebook ที่จะปรากฏตอนชี้ */
-.hover-social {
-    position: absolute;
-    right: 20px;
-    bottom: -50px; /* ซ่อนไว้ด้านล่าง */
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.member-card:hover .hover-social {
-    bottom: 20px; /* เลื่อนขึ้นมา */
-    opacity: 1;
-}
-
-.fb-btn-small {
-    background: var(--accent-color);
-    color: #000;
-    padding: 8px 15px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* ปรับรูปโปรไฟล์เป็นสี่เหลี่ยมตามที่คุณต้องการ */
-.avatar { 
-    width: 75px; 
-    height: 75px; 
-    border-radius: 12px; 
-    object-fit: cover;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-/* ซ่อนลูกศรเดิมถ้าต้องการใช้ปุ่มแทน */
-.arrow { display: none; }
-
-/* เส้นขอบบนเรืองแสง */
-.member-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: var(--accent-color,  #cfb53b,  #aa771c);
-    box-shadow: 0 0 10px var(--accent-color);
-}
-/* รูปโปรไฟล์แบบสี่เหลี่ยมมุมมน */
-.avatar-wrap {
-    position: relative;
-    flex-shrink: 0;
-}
-
-.avatar { 
-    width: 75px; 
-    height: 75px; 
-    border-radius: 12px; /* เปลี่ยนจาก 50% เป็น 12px เพื่อให้เป็นสี่เหลี่ยมมน */
-    object-fit: cover;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-/* จุด Online ปรับตำแหน่งให้ชิดมุมสี่เหลี่ยม */
-.online-dot {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 15px;
-    height: 15px;
-    background: #22c55e;
-    border: 3px solid #0d0d0f;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
-    z-index: 2;
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-top: 2px;
-}
-
-.rank-tag { 
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--accent-color,  #cfb53b, #aa771c);
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.name { 
-    font-size: 22px; 
-    font-weight: 700; 
-    color: #fff;
-    font-family: 'Outfit', sans-serif;
-}
-
-.fb-link { 
-    font-size: 11px; 
-    color: var(--accent-color); 
-    opacity: 0.8;
-    margin-top: 2px;
-}
-
-.arrow {
-    margin-left: auto;
-    align-self: center;
-    color: rgba(255,255,255,0.1);
-    font-size: 18px;
-}
-
-   .avatar-wrap { position: relative; }
-        .avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.1); }
-        .online-dot { position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; background: #22c55e; border: 2px solid #000; border-radius: 50%; }
-        
-        .rank-tag { font-size: 10px; font-weight: 800; margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
-        .name { font-size: 17px; font-weight: 700; }
-        .fb-link { font-size: 12px; color: #fbbf24; margin-top: 2px; }
-        .arrow { margin-left: auto; color: rgba(255,255,255,0.2); }
-
-        @media (max-width: 768px) { 
-    .stats-bar { 
-        grid-template-columns: repeat(2, 1fr); /* ในมือถือแสดงแถวละ 2 กล่อง */
-    } 
-}
-
-       /* --- Search & Home Style --- */
-.search-container {
-    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 10px; z-index: 1000; width: 90%; max-width: 500px;
-}
-.home-btn {
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    color: white; padding: 12px 15px; border-radius: 12px; text-decoration: none;
-    display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);
-}
-.search-wrapper { flex: 1; position: relative; }
-.search-wrapper input {
-    width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px; padding: 12px 15px 12px 40px; color: white; outline: none; backdrop-filter: blur(10px);
-}
-.search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.3); }
-
-/* --- Music Widget Style (จาก sss.html) --- */
-.music-widget {
-    position: fixed;
-    bottom: 30px;
-    right: 30px; /* ย้ายมาด้านขวา */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    z-index: 1000;
-    transition: 0.3s;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.music-widget:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.15); }
-.album-art {
-    width: 45px; height: 45px;
-    background: url('https://img2.pic.in.th/ttr.png') center/cover;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
-}
-.track-info { display: flex; flex-direction: column; }
-.track-name { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-.track-sub { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; }
-.play-icon { font-size: 16px; color: #fff; margin-left: 5px; }
-
-/* Effect รูปหมุนตอนเล่นเพลง */
-@keyframes rotateArt {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* จัดการ Modal ให้แสดงผลเต็มจอ */
-#memberModal {
-    display: none; 
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 9999;
-    justify-content: center; 
-    align-items: center;     
-}
-
-/* ปรับแต่งปุ่มปิดให้ลอยเด่นขึ้นมา */
-.close-archive {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    color: #fff; /* เปลี่ยนเป็นสีขาวให้มองเห็นชัด */
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 100; /* ให้อยู่บนสุด */
-    opacity: 0.6;
-    transition: 0.3s;
-}
-
-.close-archive:hover {
-    opacity: 1;
-    transform: rotate(90deg);
-}
-
-/* ตัวกล่องแนวนอนแบบ Personnel Archive */
-.archive-card {
-    background: #0a0a0a;
-    width: 95%;
-    max-width: 850px; /* ขยายความกว้าง */
-    display: flex; /* แบ่งซ้าย-ขวา */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    position: relative;
-    overflow: hidden;
-}
-
-/* ฝั่งซ้าย: รูปภาพ */
-.archive-left {
-    flex: 1.2;
-    position: relative;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-#modalBanner {
-    width: 100%;
-    height: 100%;
-    min-height: 450px;
-    background-size: cover;
-    background-position: center;
-}
-
-/* ฝั่งขวา: ข้อมูล */
-.archive-right {
-    flex: 1.5;
-    padding: 60px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-}
-
-/* ตกแต่งตัวอักษรตามสไตล์ Personnel Archive */
-.archive-header { font-size: 10px; color: #3b82f6; font-weight: 800; letter-spacing: 3px; margin-bottom: 5px; }
-#modalName { font-size: 48px; font-weight: 800; text-transform: uppercase; line-height: 1; margin-bottom: 10px; font-family: 'Outfit', sans-serif; }
-#modalRank { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 30px; }
-
-/* คำโปรย (Bio) */
-.archive-bio {
-   background: rgba(255,255,255,0.03);
-    padding: 20px;
-    border-left: 3px solid #DB7093;
-    font-size: 13px;
-    color: #aaa;
-    line-height: 1.6;
-    margin-bottom: 40px;
-    font-style: italic;
-}
-
-/* จัดกลุ่มปุ่ม */
-.archive-btns { display: flex; gap: 15px; }
-.btn-archive {
-    padding: 15px 25px;
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.btn-fb { background: #3b82f6; color: #fff; border: none; flex: 1.5; text-align: center; }
-.btn-close { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); flex: 1; text-align: center; }
-.btn-archive:hover { filter: brightness(1.2); }
-
-/* --- Fire Embers Effect (Diagonal) --- */
-.fire-particle {
-    position: fixed;
-    top: -20px;
-    left: -20px;
-    width: 3px;
-    height: 3px;
-    background: linear-gradient(45deg, #ff4d00, #ffae00);
-    border-radius: 50%;
-    filter: blur(0.5px);
-    pointer-events: none;
-    z-index: 9999;
-    box-shadow: 0 0 8px #ff4d00, 0 0 15px #ffae00;
-    opacity: 0;
-    /* ใช้ cubic-bezier เพื่อให้การตกดูมีน้ำหนัก */
-    animation: diagonalFall linear infinite;
-}
-
-@keyframes diagonalFall {
-    0% {
-        transform: translate(var(--start-x), var(--start-y)) scale(0);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-        transform: translate(calc(var(--start-x) + 20px), calc(var(--start-y) + 20px)) scale(1);
-    }
-    90% {
-        opacity: 0.8;
-    }
-    100% {
-        /* ตกเฉียงไปทางขวาล่าง */
-        transform: translate(calc(var(--start-x) + 600px), calc(var(--start-y) + 100vh)) scale(0);
-        opacity: 0;
-    }
-}
-
-/* สไตล์ปุ่มตัวเลข Pagination */
-.pg-btn {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    width: 45px;
-    height: 45px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 800;
-    transition: all 0.3s;
-}
-
-.pg-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-3px);
-}
-
-.pg-btn.active {
-    background: #cfb53b; /* สีทอง TATAROS */
-    color: #000;
-    border-color: #cfb53b;
-    box-shadow: 0 0 20px rgba(207, 181, 59, 0.5);
-}
-
-.pg-arrow {
-    background: none;
-    border: none;
-    color: #cfb53b;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0 10px;
-    transition: 0.3s;
-}
-
-.pg-arrow:disabled {
-    opacity: 0.2;
-    cursor: not-allowed;
-}
-
-* {
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important;
-    -webkit-user-drag: none !important;
-    outline: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-user-select:none !important; user-select:none !important; }
+        body { font-family:'Rajdhani',sans-serif; background:var(--bg); color:#fff; min-height:100vh; overflow-x:hidden; }
+        .bg-wrap { position:fixed; inset:0; z-index:0; background: radial-gradient(ellipse 80% 60% at 50% -10%,rgba(201,168,76,0.12) 0%,transparent 60%), radial-gradient(ellipse 50% 40% at 90% 90%,rgba(201,168,76,0.06) 0%,transparent 50%), url('https://img1.pic.in.th/images/655261258_896597270043992_7434535868983744998_n.jpg') center/cover no-repeat; }
+        .bg-wrap::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,8,9,0.82) 0%,rgba(8,8,9,0.97) 100%); }
+        .scanlines { position:fixed; inset:0; z-index:1; pointer-events:none; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px); }
+        body::before { content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .ember { position:fixed; width:2px; height:2px; border-radius:50%; background:var(--gold); box-shadow:0 0 6px var(--gold-light); pointer-events:none; z-index:2; opacity:0; animation:emberFall linear infinite; }
+        @keyframes emberFall { 0%{transform:translate(var(--sx),var(--sy)) scale(0);opacity:0} 10%{opacity:1;transform:translate(calc(var(--sx) + 10px),calc(var(--sy) + 30px)) scale(1)} 90%{opacity:.6} 100%{transform:translate(calc(var(--sx) + 500px),calc(var(--sy) + 100vh)) scale(0);opacity:0} }
+        .page { position:relative; z-index:10; }
+        .header { text-align:center; padding:90px 20px 40px; }
+        .header-eyebrow { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:6px; color:var(--gold); opacity:.7; margin-bottom:12px; }
+        .logo { font-family:'Bebas Neue',sans-serif; font-size:clamp(5rem,12vw,10rem); letter-spacing:.06em; line-height:.9; background:linear-gradient(180deg,#fff 0%,#c9a84c 50%,#8a6a1e 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 40px rgba(201,168,76,.3)); }
+        .logo-sub { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:8px; color:rgba(255,255,255,.3); margin-top:10px; }
+        .divider { width:120px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:20px auto; }
+        .topbar { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; gap:10px; padding:14px 20px; background:linear-gradient(180deg,rgba(8,8,9,.95) 0%,transparent 100%); backdrop-filter:blur(8px); }
+        .topbar-btn { width:42px; height:42px; border-radius:10px; background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2); color:var(--gold); display:flex; align-items:center; justify-content:center; text-decoration:none; font-size:14px; transition:.2s; flex-shrink:0; }
+        .topbar-btn:hover { background:rgba(201,168,76,.15); border-color:var(--gold); }
+        .search-wrap { flex:1; position:relative; max-width:480px; margin:0 auto; }
+        .search-wrap input { width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:11px 16px 11px 42px; color:#fff; font-family:'Rajdhani',sans-serif; font-size:15px; outline:none; transition:.3s; }
+        .search-wrap input:focus { border-color:rgba(201,168,76,.4); background:rgba(201,168,76,.05); }
+        .search-wrap input::placeholder { color:rgba(255,255,255,.2); }
+        .search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,.25); font-size:13px; }
+        .stats-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; max-width:1100px; margin:0 auto 50px; padding:0 20px; }
+        @media(max-width:700px){ .stats-grid{grid-template-columns:repeat(2,1fr)} .stats-grid .stat-card:last-child{grid-column:span 2} }
+        .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 12px; text-align:center; position:relative; overflow:hidden; transition:.4s; }
+        .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--c,var(--gold)); box-shadow:0 0 12px var(--c,var(--gold)); opacity:.6; }
+        .stat-card:hover { transform:translateY(-6px); background:rgba(255,255,255,.05); }
+        .stat-num { font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--c,var(--gold)); text-shadow:0 0 20px var(--c,var(--gold)); display:block; line-height:1; }
+        .stat-lbl { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-top:6px; }
+        .section-title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:.12em; display:flex; align-items:center; gap:14px; margin:40px 0 18px; }
+        .section-title::before { content:''; width:4px; height:28px; background:var(--accent,var(--gold)); box-shadow:0 0 10px var(--accent,var(--gold)); border-radius:2px; flex-shrink:0; }
+        .section-title .cnt { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px; color:rgba(255,255,255,.3); }
+        .members-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; }
+        .member-card { position:relative; background:linear-gradient(135deg,rgba(18,18,22,.9),rgba(10,10,12,.98)); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:18px; display:flex; align-items:center; gap:16px; cursor:pointer; overflow:hidden; transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s,border-color .35s; }
+        .member-card::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--ac),transparent); opacity:.5; transition:.4s; }
+        .member-card:hover { transform:translateY(-6px) scale(1.015); border-color:rgba(255,255,255,.12); box-shadow:0 20px 50px rgba(0,0,0,.6); }
+        .member-card:hover::after { opacity:1; }
+        .av-wrap { position:relative; flex-shrink:0; width:72px; height:72px; }
+        .av-wrap .avatar,.av-wrap video { width:72px; height:72px; border-radius:12px; object-fit:cover; border:2px solid rgba(255,255,255,.08); transition:.3s; display:block; }
+        .member-card:hover .av-wrap .avatar,.member-card:hover .av-wrap video { border-color:var(--ac); box-shadow:0 0 18px rgba(var(--ac-rgb,201,168,76),.4); }
+        .online-dot { position:absolute; bottom:-3px; right:-3px; width:14px; height:14px; background:var(--green); border:2px solid #080809; border-radius:50%; box-shadow:0 0 10px var(--green); }
+        .card-info { flex:1; min-width:0; }
+        .card-rank { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:var(--ac); text-transform:uppercase; margin-bottom:4px; }
+        .card-name { font-family:'Bebas Neue',sans-serif; font-size:1.45rem; letter-spacing:.05em; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .card-fb { position:absolute; right:16px; bottom:-40px; opacity:0; transition:.3s ease; }
+        .member-card:hover .card-fb { bottom:16px; opacity:1; }
+        .fb-pill { background:var(--ac); color:#000; font-family:'Space Mono',monospace; font-size:9px; font-weight:700; letter-spacing:2px; text-decoration:none; padding:7px 14px; border-radius:8px; display:flex; align-items:center; gap:6px; transition:.2s; }
+        .container { max-width:1200px; margin:0 auto; padding:0 20px 60px; }
+        .pagination { display:flex; justify-content:center; align-items:center; gap:8px; margin:40px 0; }
+        .pg-btn { width:44px; height:44px; border-radius:10px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.03); color:#fff; font-family:'Space Mono',monospace; font-size:13px; cursor:pointer; transition:.2s; }
+        .pg-btn:hover { background:rgba(255,255,255,.08); }
+        .pg-btn.active { background:var(--gold); color:#000; border-color:var(--gold); box-shadow:0 0 16px rgba(201,168,76,.4); font-weight:700; }
+        .pg-arrow { background:none; border:none; color:var(--gold); font-size:18px; cursor:pointer; padding:0 8px; transition:.2s; }
+        .pg-arrow:disabled { opacity:.2; cursor:not-allowed; }
+        .music-widget { position:fixed; bottom:24px; right:24px; background:rgba(12,12,15,.9); backdrop-filter:blur(20px); border:1px solid rgba(201,168,76,.15); border-radius:16px; padding:12px 18px; display:flex; align-items:center; gap:12px; cursor:pointer; z-index:999; transition:.3s; box-shadow:0 10px 40px rgba(0,0,0,.6); }
+        .music-widget:hover { border-color:rgba(201,168,76,.4); transform:translateY(-3px); }
+        .music-art { width:40px; height:40px; background:url('https://img2.pic.in.th/ttr.png') center/cover; border-radius:8px; }
+        .music-info .t1 { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px; color:var(--gold); }
+        .music-info .t2 { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:rgba(255,255,255,.3); margin-top:2px; }
+        .music-play { font-size:18px; color:var(--gold); margin-left:4px; }
+        @keyframes rotateArt { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        #memberModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); backdrop-filter:blur(20px); z-index:9999; justify-content:center; align-items:center; animation:fadeIn .3s ease; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        .modal-card { background:rgba(12,12,15,.98); border:1px solid rgba(255,255,255,.08); border-radius:20px; width:92%; max-width:760px; display:flex; overflow:hidden; position:relative; animation:popIn .35s cubic-bezier(.34,1.56,.64,1) forwards; }
+        @keyframes popIn { from{transform:scale(.85);opacity:0} to{transform:scale(1);opacity:1} }
+        .modal-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--modal-ac,var(--gold)),transparent); animation:scanLine 3s linear infinite; }
+        @keyframes scanLine { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+        .modal-left { flex:0 0 280px; position:relative; overflow:hidden; }
+        #modalMedia { width:100%; height:100%; background-size:cover; background-position:center; min-height:320px; }
+        #modalMedia video { width:100%; height:100%; object-fit:cover; display:block; }
+        .modal-left::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent 60%,rgba(12,12,15,.8) 100%); }
+        .modal-right { flex:1; padding:44px 36px; display:flex; flex-direction:column; justify-content:center; }
+        .modal-eyebrow { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:4px; color:#3a7bd5; margin-bottom:8px; }
+        #modalName { font-family:'Bebas Neue',sans-serif; font-size:3.2rem; letter-spacing:.04em; line-height:1; margin-bottom:4px; }
+        #modalRank { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:3px; margin-bottom:28px; }
+        .modal-bio { background:rgba(255,255,255,.03); border-left:3px solid var(--modal-ac,var(--gold)); padding:16px 18px; font-size:14px; color:rgba(255,255,255,.5); font-style:italic; line-height:1.6; margin-bottom:32px; border-radius:0 6px 6px 0; }
+        .modal-btns { display:flex; gap:12px; }
+        .btn-fb-modal { background:var(--modal-ac,var(--gold)); color:#000; padding:14px 24px; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-decoration:none; border-radius:10px; display:flex; align-items:center; gap:8px; transition:.25s; }
+        .btn-fb-modal:hover { filter:brightness(1.15); transform:translateY(-2px); }
+        .btn-close-modal { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.6); padding:14px 20px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; border-radius:10px; cursor:pointer; transition:.25s; }
+        .btn-close-modal:hover { background:rgba(255,255,255,.1); color:#fff; }
+        .close-x { position:absolute; top:16px; right:16px; color:rgba(255,255,255,.3); font-size:20px; cursor:pointer; z-index:10; transition:.2s; padding:8px; }
+        .close-x:hover { color:#fff; transform:rotate(90deg); }
+        @media(max-width:600px){ .modal-card{flex-direction:column;max-width:360px} .modal-left{flex:none;height:220px} .modal-right{padding:28px 22px} #modalName{font-size:2.4rem} }
+        #no-result-msg { text-align:center; padding:60px 20px; color:rgba(255,255,255,.2); font-family:'Space Mono',monospace; font-size:13px; letter-spacing:3px; }
+        /* LOADING */
+        #loadingScreen { position:fixed; inset:0; z-index:9998; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; transition:opacity .5s; }
+        .ld-logo { font-family:'Bebas Neue',sans-serif; font-size:4rem; letter-spacing:.1em; background:linear-gradient(180deg,#fff,var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .ld-bar-wrap { width:200px; height:2px; background:rgba(255,255,255,.08); border-radius:2px; overflow:hidden; }
+        .ld-bar { height:100%; background:var(--gold); border-radius:2px; animation:ldAnim 1.5s ease forwards; }
+        @keyframes ldAnim { from{width:0} to{width:100%} }
+        .ld-txt { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:4px; color:rgba(255,255,255,.3); }
     </style>
 </head>
 <body>
-    <div class="bg-overlay"></div>
-    <div class="header">
-        <h1 class="logo">TATAROS 168</h1>
-        <p class="subtitle">LASTNAME TATAROS</p>
-    </div>
 
-    <div class="search-container">
-    <a href="index.html" class="home-btn"><i class="fas fa-home"></i></a>
-    <div class="search-wrapper">
+<div id="loadingScreen">
+    <div class="ld-logo">TATAROS</div>
+    <div class="ld-bar-wrap"><div class="ld-bar"></div></div>
+    <div class="ld-txt">LOADING MEMBERS...</div>
+</div>
+
+<div class="bg-wrap"></div>
+<div class="scanlines"></div>
+
+<div class="topbar">
+    <a href="index.html" class="topbar-btn"><i class="fas fa-home"></i></a>
+    <a href="https://www.facebook.com/profile.php?id=100077878680394" target="_blank" class="topbar-btn"><i class="fab fa-facebook"></i></a>
+    <div class="search-wrap">
         <i class="fas fa-search search-icon"></i>
-        <input type="text" id="memberSearch" placeholder="ค้นหาชื่อสมาชิก...">
+        <input type="text" id="memberSearch" placeholder="ค้นหาสมาชิก...">
     </div>
-    </div>  
+</div>
+
+<div class="page">
+    <div class="header">
+        <div class="header-eyebrow">MEMBER TATAROS</div>
+        <div class="logo">TATAROS</div>
+        <div class="logo-sub">LASTNAME TATAROS</div>
+        <div class="divider"></div>
+    </div>
+    <div class="stats-grid" id="statsBar"></div>
+    <div class="container" id="memberContent"></div>
+    <div class="pagination" id="pagination-controls"></div>
 </div>
 
 <div class="music-widget" id="musicToggle">
-    <div class="album-art" id="musicArt"></div>
-    <div class="track-info">
-        <div class="track-name">TATAROS</div>
-        <div class="track-sub">168</div>
+    <div class="music-art" id="musicArt"></div>
+    <div class="music-info">
+        <div class="t1">TATAROS</div>
+        <div class="t2">168 · NOW PLAYING</div>
     </div>
-    <div class="play-icon" id="playStatus">▶</div>
+    <div class="music-play" id="playStatus">▶</div>
 </div>
-
 <audio id="bgMusic" loop src="https://www.dropbox.com/scl/fi/7xa56mo552u72xuk4jeqo/TATAROS-Mv.mp3?rlkey=i2thg4kw1xplqx505bxy3ltif&st=fv83d7oa&raw=1"></audio>
 
-    <div class="stats-bar" id="statsBar">
-        </div>
-
-    <div class="container" id="memberContent">
-        </div>
-
-        <div id="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 40px 0;">
-    </div>
-
-        <div id="memberModal" onclick="if(event.target == this) closeModal()">
-    <div class="archive-card">
-        <i class="fas fa-times close-archive" onclick="closeModal()"></i>
-        
-        <div class="archive-left">
-            <div id="modalBanner"></div>
-        </div>
-
-        <div class="archive-right">
-            <div class="archive-header">168</div>
+<div id="memberModal" onclick="if(event.target===this)closeModal()">
+    <div class="modal-card" id="modalCard">
+        <i class="fas fa-times close-x" onclick="closeModal()"></i>
+        <div class="modal-left"><div id="modalMedia"></div></div>
+        <div class="modal-right">
+            <div class="modal-eyebrow">168 · TATAROS REGISTRY</div>
             <h2 id="modalName"></h2>
             <div id="modalRank"></div>
-            
-            <div class="archive-bio">
-                พวกกูTATAROS
-            </div>
-
-            <div class="archive-btns">
-                <a id="modalFB" href="#" target="_blank" class="btn-archive btn-fb">FACEBOOK</a>
+            <div class="modal-bio">พวกกูTATAROS</div>
+            <div class="modal-btns">
+                <a id="modalFB" href="#" target="_blank" class="btn-fb-modal"><i class="fab fa-facebook"></i>FACEBOOK</a>
+                <button class="btn-close-modal" onclick="closeModal()">CLOSE</button>
             </div>
         </div>
     </div>
 </div>
 
-   <script>
-    // 1. ใส่รายชื่อสมาชิกทุกคนตรงนี้ (ไม่ต้องมีไฟล์ gang.json แยก)
-    const members = [
-        { "name": "Theboss Winterfell", "rank": "theboss", "facebook": "https://www.facebook.com/jusminrobertowinterfell", "avatar": "https://img2.pic.in.th/324658574_696485758639042_5675037715354055872_n.jpg" },
-        { "name": "Prxt Winterfell", "rank": "theboss", "facebook": "https://www.facebook.com/Prxtyouknow.wtfdelta#", "avatar": "https://img1.pic.in.th/images/475916063_648485650856232_4587172759592301555_n.jpg" },
-        { "name": "Owen Unfair", "rank": "theboss", "facebook": "https://www.facebook.com/timesemipro", "avatar": "https://img1.pic.in.th/images/473222295_636607255546956_5568569869274123055_nbd4f6ccf95aeb869.jpg" },
-        { "name": "Gluay Unfair", "rank": "theboss", "facebook": "https://www.facebook.com/gluaysmp", "avatar": "https://img2.pic.in.th/Untitled63_20260225175212.png" },
-        { "name": "Youngninex Vegxs", "rank": "theboss", "facebook": "https://www.facebook.com/Youlovefz", "avatar": "https://img2.pic.in.th/622126689_899218529714257_981082152131545178_n.jpg" },
-        // รีดเดอร์
-        { "name": "Sphinx Unfair", "rank": "leader", "facebook": "https://www.facebook.com/tinnoyz", "avatar": "https://img2.pic.in.th/downloadbd49c47e534df265.jpeg" },
-        { "name": "Benz YGz", "rank": "leader", "facebook": "https://www.facebook.com/youngoriginalgangster", "avatar": "https://img2.pic.in.th/471618885_577320018593742_1407450486126798565_n748c86f19ab9c9c4.jpg" },
-        { "name": "Porch YGz", "rank": "leader", "facebook": "https://www.facebook.com/porch.ygz", "avatar": "https://img2.pic.in.th/8bf94928-325f-4b7b-9cd3-0f22fdf465ba.jpeg" },
-        { "name": "Honest Tataros", "rank": "leader", "facebook": "https://www.facebook.com/Honestxtataros168", "avatar": "https://img2.pic.in.th/7461b572-a2a7-49d4-92bf-d2becea082a0.jpg" },
-        { "name": "Darkg Tataros", "rank": "leader", "facebook": "https://www.facebook.com/darkg.prox", "avatar": "https://img2.pic.in.th/Untitled56_20260222140132.png" },
-        { "name": "Pipo Tataros", "rank": "leader", "facebook": "https://www.facebook.com/pipo.winterfell ", "avatar": "https://img1.pic.in.th/images/713f4560-5ac0-461b-8f62-0dc86cb5b2de.jpeg" },
-        // สตราฟ
-        { "name": "Fiaz YGz", "rank": "staff", "facebook": "https://www.facebook.com/mfiaz.estelle", "avatar": "https://img2.pic.in.th/Unknown_person.jpg" },
-        { "name": "Alex Winterfell", "rank": "staff", "facebook": "https://www.facebook.com/alex.winterfell.2025", "avatar": "https://i.postimg.cc/XY8CDtBs/649559298-1679783769696514-6441041757069639872-n.jpg" },
-        // เมมเบอร์
-  { "name": "Arthur Tataros", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61578700096029", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },  
-  { "name": "Bigbas Tataros", "rank": "member", "facebook": "https://www.facebook.com/bigbas.wtfdelta", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Blueeye Tataros", "rank": "member", "facebook": "https://www.facebook.com/blueeye.triples", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "BxngSnow Winterfell", "rank": "member", "facebook": "https://www.facebook.com/SnowSemipro", "avatar": "https://img1.pic.in.th/images/fd23c0f7-7069-435a-bcea-e39072192228.jpeg" },
-  { "name": "Cruz Tataros", "rank": "member", "facebook": "https://www.facebook.com/cruz.fiftyone", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Duangdaow Tataros", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61576633239960", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Enmado Winterfell", "rank": "member", "facebook": "https://www.facebook.com/EnmadoDelta", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Enter Tataros", "rank": "member", "facebook": "https://www.facebook.com/enterxoverfriends", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Gusjung Oreomkf", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61588570093087", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Highjack Tataros", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61580733247633", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Icex Tataros", "rank": "member", "facebook": "https://www.facebook.com/Icexbxy", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Inter Tataros", "rank": "member", "facebook": "https://www.facebook.com/haylee.shoen.379891", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Iwantyousay Tataros", "rank": "member", "facebook": "https://www.facebook.com/Porch.Neverbrokeagain", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Jayr Tataros", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=100087796058326", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Jays Tataros", "rank": "member", "facebook": "https://www.facebook.com/Jxsusgodyouknow", "avatar": "https://img2.pic.in.th/652665768_2795314204165330_6250280978794735807_n.jpg" }, 
-  { "name": "Jess Tataros", "rank": "member", "facebook": "https://www.facebook.com/myjess.estelle", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Jezuz Tataros", "rank": "member", "facebook": "https://www.facebook.com/jezuz.diff", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "John Tataros", "rank": "member", "facebook": "https://www.facebook.com/john.estelle.z", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Justperx Tataros", "rank": "member", "facebook": "https://www.facebook.com/Justperx", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Kings Tataros", "rank": "member", "facebook": "https://www.facebook.com/levipslolay", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Kirito Tataros", "rank": "member", "facebook": "https://www.facebook.com/baratheon.kirito", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Luca Stark", "rank": "member", "facebook": "https://www.facebook.com/LucaStarkG", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Maira Tataros", "rank": "member", "facebook": "https://www.facebook.com/maira.kym", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Myjust Tataros", "rank": "member", "facebook": "https://www.facebook.com/samefreedom2611", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Nero Tataros", "rank": "member", "facebook": "https://www.facebook.com/Nero.Diamondonsnow", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Neverpassalwayspower Tataros", "rank": "member", "facebook": "https://www.facebook.com/Nongconner", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Percy Tataros", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61582151382781", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Pritx Tataros", "rank": "member", "facebook": "https://www.facebook.com/prite.undefeated", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Qler YGz", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61582557116823", "avatar": "https://img2.pic.in.th/cc483525-0ba1-4c0f-a925-a3de376a828a.jpeg" }, 
-  { "name": "Ruelliaup Tataros", "rank": "member", "facebook": "https://www.facebook.com/yuji.daringirl", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" }, 
-  { "name": "Shadowx Diamondonsnow", "rank": "member", "facebook": "https://www.facebook.com/shadowxdiamondonsnow", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Smui Tataros", "rank": "member", "facebook": "https://www.facebook.com/Smui.Tataros", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Tiger Tataros", "rank": "member", "facebook": "https://www.facebook.com/tigerdeargod", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Turkź イ Tataros", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61586335930375", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Taro Tataros", "rank": "member", "facebook": "https://www.facebook.com/tarohighblizzard", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Lucky Tataros", "rank": "member", "facebook": "https://www.facebook.com/luckyyzzz", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Tagikaze Tataros", "rank": "member", "facebook": "https://www.facebook.com/tagikaze.obx", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "LamBo Tataros", "rank": "member", "facebook": "https://www.facebook.com/lambo.zera", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Nerq Tataros", "rank": "member", "facebook": "https://www.facebook.com/TarlorJys", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Mon Tataros", "rank": "member", "facebook": "https://www.facebook.com/mon.qwertyy", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-  { "name": "Mickkyz YGz", "rank": "member", "facebook": "https://www.facebook.com/profile.php?id=61582110422532", "avatar": "https://img2.pic.in.th/Gemini_Generated_Image_ahwvgyahwvgyahwv.png" },
-];
+<script>
+// ══════════════════════════════════════════
+//  🔧 ตั้งค่า Google Sheets ตรงนี้
+// ══════════════════════════════════════════
+const SHEET_ID   = '1UjtK94IqfBtbyZba-uf_epISKud-1FhESV7gkANxHrg';
+const SHEET_NAME = 'Sheet1'; // ชื่อ tab ใน Sheets
+// ══════════════════════════════════════════
 
-  let currentPage = 1;
-const itemsPerPage = 12;
+const rankConfig = {
+    theboss:{ label:'THE BOSS', color:'#c9a84c', rgb:'201,168,76' },
+    leader: { label:'LEADER',   color:'#e03030', rgb:'224,48,48'  },
+    staff:  { label:'STAFF',    color:'#c26a8a', rgb:'194,106,138'},
+    member: { label:'MEMBER',   color:'#3a7bd5', rgb:'58,123,213' },
+};
 
-function init() {
-    renderStats(); // แยกฟังก์ชันนับสถิติ
-    renderMembers(); // เรียกฟังก์ชันวาดรายชื่อ
+let members = [];
+let currentPage = 1;
+const PER_PAGE  = 12;
+
+// ─── ดึงข้อมูลจาก Sheets ───
+async function fetchMembers() {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+    try {
+        const res  = await fetch(url);
+        const text = await res.text();
+        const json = JSON.parse(text.substring(47, text.length - 2));
+        members = json.table.rows.map(row => ({
+            name:     row.c[0]?.v || '',
+            rank:    (row.c[1]?.v || 'member').toLowerCase().trim(),
+            facebook: row.c[2]?.v || '#',
+            avatar:   row.c[3]?.v || 'https://img2.pic.in.th/Unknown_person.jpg',
+        })).filter(m => m.name);
+    } catch(e) {
+        console.error('โหลดข้อมูลไม่ได้:', e);
+        members = [];
+    }
+}
+
+function mediaEl(src, cls='avatar') {
+    if (src && (src.endsWith('.mp4') || src.endsWith('.webm')))
+        return `<video src="${src}" class="${cls}" autoplay loop muted playsinline></video>`;
+    return `<img src="${src}" class="${cls}" onerror="this.src='https://img2.pic.in.th/Unknown_person.jpg'">`;
 }
 
 function renderStats() {
-    const counts = {
-        total: members.length,
-        founder: members.filter(m => m.rank === 'theboss').length,
-        leader: members.filter(m => m.rank === 'leader').length,
-        staff: members.filter(m => m.rank.toLowerCase() === 'staff').length,
-        member: members.filter(m => m.rank === 'member' || m.rank === 'vip').length
-    };
+    const g = [
+        {k:'theboss',l:'THE BOSS',c:'#c9a84c'},
+        {k:'leader', l:'LEADER',  c:'#e03030'},
+        {k:'staff',  l:'STAFF',   c:'#c26a8a'},
+        {k:'member', l:'MEMBER',  c:'#3a7bd5'},
+        {k:'_total', l:'TOTAL',   c:'#ffffff'},
+    ];
+    document.getElementById('statsBar').innerHTML = g.map(x => {
+        const n = x.k==='_total' ? members.length : members.filter(m=>m.rank===x.k).length;
+        return `<div class="stat-card" style="--c:${x.c}"><span class="stat-num">${n}</span><span class="stat-lbl">${x.l}</span></div>`;
+    }).join('');
+}
 
-    document.getElementById('statsBar').innerHTML = `
-        <div class="stat-card" style="--glow-color: #fbbf24">
-            <span class="stat-number" style="color: #fbbf24; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);">${counts.founder}</span>
-            <span class="stat-label">THE BOSS</span>
-        </div>
-
-        <div class="stat-card" style="--glow-color: #ef4444">
-            <span class="stat-number" style="color: #ef4444; text-shadow: 0 0 15px rgba(239, 68, 68, 0.6);">${counts.leader}</span>
-            <span class="stat-label">LEADER</span>
-        </div>
-
-        <div class="stat-card" style="--glow-color: #DB7093">
-            <span class="stat-number" style="color: #DB7093; text-shadow: 0 0 15px "color: #DB7093;">${counts.staff}</span>
-            <span class="stat-label">STAFF</span>
-        </div>
-
-        <div class="stat-card" style="--glow-color: #3b82f6">
-            <span class="stat-number" style="color: #3b82f6; text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);">${counts.member}</span>
-            <span class="stat-label">MEMBER</span>
-        </div>
-
-        <div class="stat-card" style="--glow-color: #ffffff">
-            <span class="stat-number" style="color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);">${counts.total}</span>
-            <span class="stat-label">SYSTEM ACTIVE</span>
-        </div>
-    `;
+function sectionHTML(title, grp, color, rgb, rankKey, total) {
+    const cards = grp.map(m => `
+        <div class="member-card" style="--ac:${color};--ac-rgb:${rgb}"
+             onclick="openModal('${m.name.replace(/'/g,"\\'")}','${title.replace(/S$/,'')}','${m.avatar.replace(/'/g,"\\'")}','${m.facebook.replace(/'/g,"\\'")}','${color}')">
+            <div class="av-wrap">${mediaEl(m.avatar)}<div class="online-dot"></div></div>
+            <div class="card-info">
+                <div class="card-rank">${title.replace(/S$/,'')}</div>
+                <div class="card-name">${m.name}</div>
+            </div>
+            <div class="card-fb">
+                <a href="${m.facebook}" target="_blank" class="fb-pill" onclick="event.stopPropagation()">
+                    <i class="fab fa-facebook"></i>PROFILE
+                </a>
+            </div>
+        </div>`).join('');
+    return `<h2 class="section-title" style="--accent:${color}" id="rank-${rankKey}">${title} <span class="cnt">/ ${total}</span></h2><div class="members-grid">${cards}</div>`;
 }
 
 function renderMembers() {
     let html = '';
-    const groups = [
-        { title: 'Founders', rank: 'theboss', color: '#fbbf24' },
-        { title: 'Leaders', rank: 'leader', color: '#ef4444' },
-        { title: 'Staff', rank: 'staff', color: '#DB7093' } // เพิ่มบรรทัดนี้ครับ
-    ];
-
-    // 1. แสดงกลุ่ม Founders และ Leaders แบบปกติ (แสดงทุกคน)
-    groups.forEach(group => {
-        const groupMembers = members.filter(m => m.rank === group.rank);
-        if (groupMembers.length > 0) {
-            html += generateGrid(group.title, groupMembers, group.color, group.rank);
-        }
+    ['theboss','leader','staff'].forEach(r => {
+        const cfg = rankConfig[r];
+        const grp = members.filter(m => m.rank===r);
+        if (grp.length) html += sectionHTML(cfg.label+'S', grp, cfg.color, cfg.rgb, r, grp.length);
     });
-
-    // 2. จัดการกลุ่ม Member แบบแบ่งหน้า (Pagination)
-    const allNormalMembers = members.filter(m => m.rank === 'member' || m.rank === 'vip');
-    const totalPages = Math.ceil(allNormalMembers.length / itemsPerPage);
-    
-    // ตัดเอาเฉพาะ 12 คนของหน้านั้นๆ
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedMembers = allNormalMembers.slice(startIndex, startIndex + itemsPerPage);
-
-    if (paginatedMembers.length > 0) {
-        html += generateGrid('Members', paginatedMembers, '#3b82f6', 'member', allNormalMembers.length);
-    }
-
-    document.getElementById('memberContent').innerHTML = html;
-    renderPaginationControls(totalPages);
+    const allMem = members.filter(m => m.rank==='member');
+    const pages  = Math.ceil(allMem.length / PER_PAGE);
+    const sliced = allMem.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
+    if (sliced.length) html += sectionHTML('MEMBERS', sliced, rankConfig.member.color, rankConfig.member.rgb, 'member', allMem.length);
+    document.getElementById('memberContent').innerHTML = html || '<div id="no-result-msg"><i class="fas fa-ghost" style="display:block;font-size:28px;margin-bottom:12px"></i>ยังไม่มีข้อมูล</div>';
+    renderPagination(pages);
 }
 
-// ฟังก์ชันสร้างการ์ด (ช่วยให้ Code สะอาดขึ้น)
-function generateGrid(title, groupMembers, color, rank, totalCount) {
-   // ใช้สีประจำยศ (color) มาสร้างตัวแปร CSS เฉพาะสำหรับการ์ดในกลุ่มนี้
-    let gridHtml = `<h2 class="rank-title" id="rank-${rank}">${title} <span>/ ${totalCount || groupMembers.length}</span></h2><div class="grid">`;
-    
-    groupMembers.forEach(m => {
-        // เช็คว่าถ้าเป็นยศสูง ให้ใช้ไอคอนมงกุฎ ถ้าไม่ใช่ใช้ไอคอน User
-        const rankIcon = (rank === 'theboss' || rank === 'leader' || rank === 'staff') 
-            ? `<img src="https://img2.pic.in.th/Gemini_Generated_Image_f77o6qf77o6qf77o-Photoroom.png" style="width:16px; height:16px; margin-right:5px; vertical-align:middle;">`
-            : `<i class="fas fa-user" style="margin-right:5px;"></i>`;
-
-        gridHtml += `
-            <div class="member-card" style="--accent-color: ${color}" onclick="openModal('${m.name}', '${title.slice(0,-1).toUpperCase()}', '${m.avatar}', '${m.facebook}', '${color}')">
-                <div class="avatar-wrap">
-                    <img src="${m.avatar}" class="avatar">
-                    <div class="online-dot"></div>
-                </div>
-                <div class="info">
-                    <div class="rank-tag" style="color: ${color}">${title.toUpperCase().slice(0, -1)} ${rankIcon}</div>
-                    <div class="name">${m.name}</div>
-                </div>
-                <div class="hover-social">
-                    <a href="${m.facebook}" target="_blank" class="fb-btn-small" style="background: ${color}; color: #000" onclick="event.stopPropagation();">
-    <i class="fab fa-facebook"></i> PROFILE
-</a>
-                </div>
-            </div>`;
-    });
-    gridHtml += `</div>`;
-    return gridHtml;
+function renderPagination(total) {
+    const el = document.getElementById('pagination-controls');
+    if (total<=1){el.innerHTML='';return;}
+    let h = `<button class="pg-arrow" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}><i class="fas fa-chevron-left"></i></button>`;
+    for(let i=1;i<=total;i++) h += `<button class="pg-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    h += `<button class="pg-arrow" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}><i class="fas fa-chevron-right"></i></button>`;
+    el.innerHTML = h;
 }
+function goPage(p){currentPage=p;renderMembers();document.getElementById('rank-member')?.scrollIntoView({behavior:'smooth'});}
 
-function renderPaginationControls(totalPages) {
-    const container = document.getElementById('pagination-controls');
-    
-    // ถ้ามีหน้าเดียว ไม่ต้องแสดงปุ่ม
-    if (totalPages <= 1) { 
-        container.innerHTML = ''; 
-        return; 
-    }
-
-    // ปุ่มย้อนกลับ <
-    let pgHtml = `
-        <button class="pg-arrow" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
-            <i class="fas fa-chevron-left"></i>
-        </button>
-    `;
-
-    // วนลูปสร้างปุ่มตัวเลข 1, 2, 3...
-    for (let i = 1; i <= totalPages; i++) {
-        pgHtml += `
-            <button onclick="changePage(${i})" 
-                    class="pg-btn ${i === currentPage ? 'active' : ''}">
-                ${i}
-            </button>
-        `;
-    }
-
-    // ปุ่มไปข้างหน้า >
-    pgHtml += `
-        <button class="pg-arrow" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
-            <i class="fas fa-chevron-right"></i>
-        </button>
-    `;
-
-    container.innerHTML = pgHtml;
-}
-
-function changePage(page) {
-    currentPage = page;
-    renderMembers();
-    // เลื่อนกลับไปดูที่หัวข้อ Member
-    document.getElementById('rank-member').scrollIntoView({ behavior: 'smooth' });
-}
-    // สั่งให้ระบบเริ่มทำงาน
-    init();
-
-// --- ระบบค้นหาสมาชิก ---
-document.getElementById('memberSearch').addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    
-    // 1. Stats Bar ไม่ต้องหาย (เราจะเอาคำสั่งซ่อนออก)
-    const statsBar = document.getElementById('statsBar');
-    statsBar.style.display = 'grid'; // บังคับให้แสดงไว้ตลอด
-
-    // 2. จัดการรายชื่อและหัวข้อยศ (Rank Title)
-    const sections = document.querySelectorAll('.container > div.grid');
-    
-    sections.forEach(grid => {
-        const title = grid.previousElementSibling; // ตัว h2 (Rank Title)
-        const cards = grid.querySelectorAll('.member-card');
-        let hasVisibleCard = false;
-
-        cards.forEach(card => {
-            const name = card.querySelector('.name').textContent.toLowerCase();
-            if (name.includes(searchTerm)) {
-                card.style.display = 'flex';
-                hasVisibleCard = true;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        // ถ้ากลุ่มไหนมีคนตรงกับที่ค้นหา ให้แสดงหัวข้อ ถ้าไม่มีให้ซ่อน
-        if (hasVisibleCard) {
-            title.style.display = 'block';
-            grid.style.display = 'grid';
-        } else {
-            title.style.display = 'none';
-            grid.style.display = 'none';
-        }
-    });
-});
-
-// --- ระบบเล่นเพลง (Widget sss.html) ---
-// ดึง Element จาก HTML เดิม
-const audio = document.getElementById('bgMusic');
-const musicToggle = document.getElementById('musicToggle');
-const playStatus = document.getElementById('playStatus');
-const musicArt = document.getElementById('musicArt');
-
-// ตั้งค่าความดัง 50%
-audio.volume = 0.5;
-
-function toggleMusic() {
-    if (audio.paused) {
-        audio.play().then(() => {
-            // ปรับ UI เมื่อเล่นเพลง
-            playStatus.innerText = '⏸';
-            musicArt.style.animation = 'rotateArt 4s linear infinite';
-            // หากมีส่วนแสดงชื่อเพลง (song-info) ให้ลบ Class ซ่อนออก
-            const songInfo = document.getElementById('song-info');
-            if(songInfo) songInfo.classList.remove('opacity-0', 'translate-x-5');
-        }).catch(error => {
-            console.log("Autoplay ถูกบล็อก: ต้องคลิกหน้าจอก่อน", error);
-        });
+function openModal(name,rank,img,fb,color){
+    const card = document.getElementById('modalCard');
+    card.style.setProperty('--modal-ac',color);
+    document.getElementById('modalName').innerText = name;
+    document.getElementById('modalRank').innerText = rank+' / TATAROS';
+    document.getElementById('modalRank').style.cssText += `;color:${color};text-shadow:0 0 15px ${color}`;
+    document.getElementById('modalFB').href = fb;
+    const media = document.getElementById('modalMedia');
+    if (img && (img.endsWith('.mp4')||img.endsWith('.webm'))) {
+        media.style.backgroundImage='none';
+        media.innerHTML=`<video src="${img}" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
     } else {
-        audio.pause();
-        // ปรับ UI เมื่อหยุดเพลง
-        playStatus.innerText = '▶';
-        musicArt.style.animation = 'none';
-        const songInfo = document.getElementById('song-info');
-        if(songInfo) songInfo.classList.add('opacity-0', 'translate-x-5');
+        media.innerHTML='';
+        media.style.cssText='background-size:cover;background-position:center;min-height:320px;background-image:url(\''+img+'\')';
     }
+    document.getElementById('memberModal').style.display='flex';
+}
+function closeModal(){
+    const modal=document.getElementById('memberModal'),card=document.getElementById('modalCard');
+    card.style.cssText+='transform:scale(.9);opacity:0;transition:.2s';
+    setTimeout(()=>{modal.style.display='none';card.style.transform='';card.style.opacity='';},200);
 }
 
-// พยายามเล่นทันทีที่โหลดเสร็จ (Autoplay Policy)
-window.addEventListener('load', () => {
-    audio.play().then(() => {
-        // ถ้า Autoplay สำเร็จ (บาง Browser ยอม)
-        playStatus.innerText = '⏸';
-        musicArt.style.animation = 'rotateArt 4s linear infinite';
-    }).catch(() => {
-        // ถ้าโดนบล็อก ให้รอการคลิกครั้งแรกของ User เพื่อเริ่มเล่น
-        document.addEventListener('click', () => {
-            if (audio.paused) toggleMusic();
-        }, { once: true });
+document.getElementById('memberSearch').addEventListener('input', function(){
+    const term=this.value.toLowerCase().trim();
+    const content=document.getElementById('memberContent');
+    if(!term){currentPage=1;renderMembers();return;}
+    const filtered=members.filter(m=>m.name.toLowerCase().includes(term));
+    if(!filtered.length){content.innerHTML='<div id="no-result-msg"><i class="fas fa-search" style="display:block;font-size:28px;margin-bottom:12px"></i>ไม่พบสมาชิก</div>';document.getElementById('pagination-controls').innerHTML='';return;}
+    const grouped={};
+    filtered.forEach(m=>{if(!grouped[m.rank])grouped[m.rank]=[];grouped[m.rank].push(m);});
+    let html='';
+    ['theboss','leader','staff','member'].forEach(r=>{
+        if(!grouped[r])return;
+        const cfg=rankConfig[r];
+        html+=sectionHTML(cfg.label+'S',grouped[r],cfg.color,cfg.rgb,r,grouped[r].length);
     });
+    content.innerHTML=html;
+    document.getElementById('pagination-controls').innerHTML='';
 });
 
-// เชื่อมต่อปุ่มเปิด-ปิด
-musicToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // ป้องกัน Event ไหลไปทับกับ click ของ document
-    toggleMusic();
-});
+// Music
+const audio=document.getElementById('bgMusic'),art=document.getElementById('musicArt'),playBtn=document.getElementById('playStatus');
+audio.volume=0.5;
+function toggleMusic(){if(audio.paused){audio.play().then(()=>{playBtn.innerText='⏸';art.style.animation='rotateArt 4s linear infinite';}).catch(()=>{});}else{audio.pause();playBtn.innerText='▶';art.style.animation='none';}}
+document.getElementById('musicToggle').addEventListener('click',e=>{e.stopPropagation();toggleMusic();});
+window.addEventListener('load',()=>{audio.play().then(()=>{playBtn.innerText='⏸';art.style.animation='rotateArt 4s linear infinite';}).catch(()=>{document.addEventListener('click',()=>{if(audio.paused)toggleMusic();},{once:true});});});
 
-function openModal(name, rank, img, fb, color) {
-    const modalName = document.getElementById('modalName');
-    const modalRank = document.getElementById('modalRank');
-    const modalFB = document.getElementById('modalFB');
-    const archiveBio = document.querySelector('.archive-bio');
-    const archiveCard = document.querySelector('.archive-card');
+// Embers
+function spawnEmber(){const e=document.createElement('div');e.className='ember';const sx=Math.random()*window.innerWidth*.7-50,sy=-Math.random()*150,dur=(Math.random()*4+4)+'s';e.style.setProperty('--sx',sx+'px');e.style.setProperty('--sy',sy+'px');e.style.animationDuration=dur;e.style.animationDelay=(Math.random()*2)+'s';e.style.width=e.style.height=(Math.random()*2.5+1)+'px';document.body.appendChild(e);setTimeout(()=>e.remove(),(parseFloat(dur)+3)*1000);}
+setInterval(spawnEmber,220);
 
-    modalName.innerText = name;
-    modalRank.innerText = rank + " / TATAROS";
-    document.getElementById('modalBanner').style.backgroundImage = `url('${img || 'https://via.placeholder.com/500'}')`;
-    modalFB.href = fb;
+// Anti-devtools
+(function(){document.addEventListener('contextmenu',e=>e.preventDefault());document.onkeydown=function(e){if(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))||(e.ctrlKey&&e.keyCode===85))return false;};setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){document.body.innerHTML="<h1 style='color:#c9a84c;font-family:monospace;padding:40px'>ACCESS DENIED</h1>";}},500);})();
 
-    // ดึงสีจากหน้าการ์ดมาใส่ใน Modal
-    modalRank.style.color = color;
-    modalFB.style.backgroundColor = color;
-    archiveBio.style.borderColor = color;
-    archiveCard.style.borderColor = color;
-    
-    // ตั้งค่าความเรืองแสง (Glow) ตามสีของยศ
-    modalRank.style.textShadow = `0 0 10px ${color}`;
-    modalFB.style.boxShadow = `0 0 15px ${color}66`; // 66 คือความโปร่งใส 40%
-
-    document.getElementById('memberModal').style.display = 'flex'; 
-}
-function closeModal() {
-    document.getElementById('memberModal').style.display = 'none';
-}
-
-
-function createFire() {
-    const particle = document.createElement('div');
-    particle.classList.add('fire-particle');
-    
-    // กำหนดจุดเริ่มต้นสุ่มเฉพาะมุมบนซ้าย (0 ถึง 60% ของความกว้างหน้าจอ)
-    // เพื่อให้มันตกเฉียงลงไปทางขวาได้ทั่วถึง
-    const startX = Math.random() * (window.innerWidth * 0.6) - 50;
-    const startY = Math.random() * -100; // เริ่มจากเหนือขอบจอขึ้นไป
-    
-    // สุ่มขนาดให้มีเล็กบ้างใหญ่บ้างดูสมจริง
-    const size = Math.random() * 3 + 1 + 'px';
-    // สุ่มเวลาตก (ความเร็วไม่เท่ากัน)
-    const duration = Math.random() * 4 + 3 + 's'; 
-    
-    particle.style.width = size;
-    particle.style.height = size;
-    
-    // ส่งค่าตำแหน่งเริ่มต้นไปยัง CSS Variable
-    particle.style.setProperty('--start-x', startX + 'px');
-    particle.style.setProperty('--start-y', startY + 'px');
-    particle.style.animationDuration = duration;
-    
-    // สุ่มดีเลย์เล็กน้อยเพื่อให้ไฟไม่ตกลงมาเป็นก้อนเดียว
-    particle.style.animationDelay = Math.random() * 2 + 's';
-
-    document.body.appendChild(particle);
-    
-    // ลบ Element ทิ้งเมื่อจบอนิเมชั่น
-    setTimeout(() => {
-        particle.remove();
-    }, (parseFloat(duration) + 2) * 1000);
-}
-
-// สร้างเศษไฟต่อเนื่อง (ปรับตัวเลข 200 เป็นน้อยลงถ้าต้องการให้ไฟเยอะขึ้น)
-setInterval(createFire, 200);
-
-(function() {
-    // 1. กันคลิกขวาและปุ่มลัด
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = function(e) {
-        if (e.keyCode == 123 || 
-            (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || 
-            (e.ctrlKey && e.keyCode == 85)) {
-            return false;
-        }
-    };
-
-    // 2. ฟังก์ชันตรวจจับ DevTools (ถ้าเปิด Console หน้าเว็บจะถูกล้างทันที)
-    setInterval(function() {
-        const threshold = 160;
-        if (window.outerWidth - window.innerWidth > threshold || 
-            window.outerHeight - window.innerHeight > threshold) {
-            document.body.innerHTML = "<h1>DETECTED: Access Denied</h1>";
-            window.location.href = "about:blank";
-        }
-    }, 500);
-
-    // 3. Infinite Debugger Loop (ถ้าเปิด Inspect จะติด Loop จน Browser ค้าง)
-    (function() {
-        (function d(i) {
-            if (("" + i / i).length !== 1 || i % 20 === 0) {
-                (function() {}.constructor("debugger")());
-            } else {
-                debugger;
-            }
-            d(++i);
-        })(0);
-    })();
+// Init
+(async()=>{
+    await fetchMembers();
+    renderStats();
+    renderMembers();
+    const ls=document.getElementById('loadingScreen');
+    ls.style.opacity='0';
+    setTimeout(()=>ls.style.display='none',500);
 })();
-
 </script>
 </body>
 </html>

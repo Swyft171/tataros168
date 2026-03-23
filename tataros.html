@@ -320,7 +320,14 @@ function spawnEmber(){const e=document.createElement('div');e.className='ember';
 setInterval(spawnEmber,220);
 
 // Anti-devtools
-(function(){document.addEventListener('contextmenu',e=>e.preventDefault());document.onkeydown=function(e){if(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))||(e.ctrlKey&&e.keyCode===85))return false;};setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){document.body.innerHTML="<h1 style='color:#c9a84c;font-family:monospace;padding:40px'>ACCESS DENIED</h1>";}},500);})();
+(function(){document.addEventListener('contextmenu',e=>e.preventDefault());document.onkeydown=function(e){
+    if(e.keyCode==123)return false;
+    if(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))return false;
+    if(e.ctrlKey&&[85,83].includes(e.keyCode))return false;
+    if(e.metaKey&&e.keyCode==83)return false;
+    if(e.metaKey&&e.shiftKey&&e.keyCode==83)return false;
+    if(e.keyCode==44)return false;
+};setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){document.body.innerHTML="<h1 style='color:#c9a84c;font-family:monospace;padding:40px'>ACCESS DENIED</h1>";}},500);})();
 
 // Init
 (async()=>{

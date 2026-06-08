@@ -351,15 +351,31 @@ setInterval(spawnEmber,220);
     if(e.keyCode==44)return false;
 };setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){document.body.innerHTML="<h1 style='color:#c9a84c;font-family:monospace;padding:40px'>ACCESS DENIED</h1>";}},500);})();
 
+// โค้ดใหม่ที่เปิดระบบ Real-time (Auto-Refresh ทุก 5 วินาที)
 // Init
 (async()=>{
+    // โหลดครั้งแรกตอนเปิดเว็บ
     await fetchMembers();
     renderStats();
     renderMembers();
+    
     const ls=document.getElementById('loadingScreen');
     ls.style.opacity='0';
     setTimeout(()=>ls.style.display='none',500);
+
+    // ตั้งเวลาให้แอบดึงข้อมูลจาก Google Sheets ใหม่ทุก ๆ 5 วินาทีแบบเงียบ ๆ
+    setInterval(async () => {
+        // เช็กก่อนว่าผู้ใช้ไม่ได้กำลังพิมพ์ค้นหาอยู่ เพื่อไม่ให้หน้าเว็บกระตุกขัดจังหวะการพิมพ์
+        const searchInput = document.getElementById('memberSearch');
+        if (searchInput && searchInput.value.trim() === '') {
+            await fetchMembers();
+            renderStats();
+            renderMembers();
+            console.log('🔄 ดึงข้อมูลใหม่จาก Google Sheets เรียบร้อยแล้ว (Real-time)');
+        }
+    }, 5000); // 5000 มิลลิวินาที = 5 วินาที (ปรับเปลี่ยนตัวเลขได้ตามต้องการ เช่น 3000 คือ 3 วินาที)
 })();
+
 </script>
 </body>
 </html>

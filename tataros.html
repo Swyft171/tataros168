@@ -168,10 +168,10 @@
 
 <script>
 // ══════════════════════════════════════════
-//  🔧 ตั้งค่า Google Sheets ตรงนี้
+//  🔧 ตั้งค่า Google Sheets ตรงนี้ (ระบบข้ามความปลอดภัยอัตโนมัติ)
 // ══════════════════════════════════════════
 const SHEET_ID   = '1UjtK94IqfBtbyZba-uf_epISKud-1FhESV7gkANxHrg';
-const SHEET_NAME = 'Sheet1'; // ชื่อ tab ใน Sheets
+const SHEET_NAME = 'Sheet1'; 
 // ══════════════════════════════════════════
 
 const rankConfig = {
@@ -185,23 +185,45 @@ let members = [];
 let currentPage = 1;
 const PER_PAGE  = 12;
 
-// ─── ดึงข้อมูลจาก Sheets ───
-async function fetchMembers() {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-    try {
-        const res  = await fetch(url + '&t=' + Date.now());
-        const text = await res.text();
-        const json = JSON.parse(text.substring(47, text.length - 2));
-        members = json.table.rows.map(row => ({
-            name:     row.c[0]?.v || '',
-            rank:    (row.c[1]?.v || 'member').toLowerCase().trim(),
-            facebook: row.c[2]?.v || '#',
-            avatar:   row.c[3]?.v || 'https://img2.pic.in.th/Unknown_person.jpg',
-        })).filter(m => m.name);
-    } catch(e) {
-        console.error('โหลดข้อมูลไม่ได้:', e);
-        members = [];
-    }
+// ดึงข้อมูลผ่าน JSONP เพื่อให้เปิดเล่นบนเครื่องคอมพิวเตอร์ทั่วไปได้ร้อยเปอร์เซ็นต์
+function fetchMembers() {
+    return new Promise((resolve) => {
+        const callbackName = 'googleSheetsCallback_' + Math.floor(Math.random() * 100000);
+        
+        window[callbackName] = function(json) {
+            try {
+                if (json && json.table && json.table.rows) {
+                    members = json.table.rows.map(row => {
+                        const nameVal = row.c[0]?.v || '';
+                        // ข้ามแถวที่เป็นหัวตาราง
+                        if(!nameVal || nameVal.toLowerCase() === 'name' || nameVal === 'ชื่อ') return null;
+                        
+                        return {
+                            name:     String(nameVal).trim(),
+                            rank:    String(row.c[1]?.v || 'member').toLowerCase().trim(),
+                            facebook: String(row.c[2]?.v || '#').trim(),
+                            avatar:   String(row.c[3]?.v || 'https://img2.pic.in.th/Unknown_person.jpg').trim(),
+                        };
+                    }).filter(m => m !== null);
+                }
+            } catch(e) {
+                console.error('แกะข้อมูลผิดพลาด:', e);
+            }
+            document.getElementById(callbackName)?.remove();
+            delete window[callbackName];
+            resolve();
+        };
+
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:${callbackName}&sheet=${encodeURIComponent(SHEET_NAME)}&t=${Date.now()}`;
+        const script = document.createElement('script');
+        script.id = callbackName;
+        script.src = url;
+        script.onerror = function() {
+            console.error('ไม่สามารถดึงข้อมูลได้ โปรดตรวจสอบอินเทอร์เน็ต');
+            resolve();
+        };
+        document.body.appendChild(script);
+    });
 }
 
 function mediaEl(src, cls='avatar') {
@@ -253,7 +275,7 @@ function renderMembers() {
     const pages  = Math.ceil(allMem.length / PER_PAGE);
     const sliced = allMem.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
     if (sliced.length) html += sectionHTML('MEMBERS', sliced, rankConfig.member.color, rankConfig.member.rgb, 'member', allMem.length);
-    document.getElementById('memberContent').innerHTML = html || '<div id="no-result-msg"><i class="fas fa-ghost" style="display:block;font-size:28px;margin-bottom:12px"></i>ยังไม่มีข้อมูล</div>';
+    document.getElementById('memberContent').innerHTML = html || '<div id="no-result-msg"><i class="fas fa-ghost" style="display:block;font-size:28px;margin-bottom:12px"></i>ยังไม่มีข้อมูลในระบบ</div>';
     renderPagination(pages);
 }
 
@@ -295,7 +317,7 @@ document.getElementById('memberSearch').addEventListener('input', function(){
     const content=document.getElementById('memberContent');
     if(!term){currentPage=1;renderMembers();return;}
     const filtered=members.filter(m=>m.name.toLowerCase().includes(term));
-    if(!filtered.length){content.innerHTML='<div id="no-result-msg"><i class="fas fa-search" style="display:block;font-size:28px;margin-bottom:12px"></i>ไม่พบสมาชิก</div>';document.getElementById('pagination-controls').innerHTML='';return;}
+    if(!filtered.length){content.innerHTML='<div id="no-result-msg"><i class="fas fa-search" style="display:block;font-size:28px;margin-bottom:12px"></i>ไม่พบข้อมูลสมาชิกที่ค้นหา</div>';document.getElementById('pagination-controls').innerHTML='';return;}
     const grouped={};
     filtered.forEach(m=>{if(!grouped[m.rank])grouped[m.rank]=[];grouped[m.rank].push(m);});
     let html='';

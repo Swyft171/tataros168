@@ -32,13 +32,13 @@
   document.querySelector('#control-music').append(music);
   document.querySelector('#control-people').append(people);
   document.querySelector('#control-overview').innerHTML = `
-    <div class="control-intro"><span>THE HOUSE, AT A GLANCE</span><h2>ทุกอย่างอยู่<br>ในมือคุณ<span>.</span></h2><p>จัดการ TATAROS จากที่เดียว</p></div>
+    <div class="control-intro"><span>THE HOUSE, AT A GLANCE</span><h2><br><span>.</span></h2><p></p></div>
     <div class="control-stats">
       <button data-control-tab="people" class="control-stat"><span>สมาชิกทั้งหมด ↗</span><strong id="controlMemberCount">—</strong><small id="controlVisibleCount">รอข้อมูลสมาชิก</small></button>
       <button data-control-tab="music" class="control-stat"><span>เพลงในคลัง ↗</span><strong id="controlTrackCount">—</strong><small>PLAYLIST</small></button>
       <button data-control-tab="partners" class="control-stat"><span>พาร์ทเนอร์ ↗</span><strong id="controlPartnerCount">—</strong><small>HOUSE CONNECTIONS</small></button>
     </div>
-    <div class="control-shortcuts"><div><span>QUICK ACCESS</span><h3>เริ่มจากตรงไหนดี?</h3></div><button data-control-tab="people">จัดการสมาชิก <span>↗</span></button><button data-control-tab="home">แก้หน้าแรก <span>↗</span></button><button data-control-tab="loader">ปรับหน้าโหลด <span>↗</span></button></div>`;
+    <div class="control-shortcuts"><div><span>QUICK ACCESS</span><h3></h3></div><button data-control-tab="people">จัดการสมาชิก <span>↗</span></button><button data-control-tab="home">แก้หน้าแรก <span>↗</span></button><button data-control-tab="loader">ปรับหน้าโหลด <span>↗</span></button></div>`;
   let current = 'overview';
   function navigate(id, focus = true) {
     if (!sections.some(section => section[0] === id)) id = 'overview';

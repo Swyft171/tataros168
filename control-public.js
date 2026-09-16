@@ -72,7 +72,7 @@
 
     put('.nav a[href="index.html"]', settings.homeLabel || 'HOME');
     put('.nav a[href="members.html"]', settings.memberLabel || 'MEMBERS');
-    put('.minimal-kicker', document.body.classList.contains('members-page') ? 'TATAROS DIRECTORY' : (settings.heroEyebrow || 'PRIVATE COMMUNITY'));
+    put('.minimal-kicker', document.body.classList.contains('members-page') ? 'TATAROS' : (settings.heroEyebrow || 'PRIVATE COMMUNITY'));
     const lead = document.querySelector('.minimal-home-lead');
     if (lead && settings.heroSubtitle) lead.textContent = settings.heroSubtitle;
     const cta = document.querySelector('.primary-button');

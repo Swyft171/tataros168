@@ -1,0 +1,27 @@
+TATAROS V6 FREE-FIRESTORE
+==========================
+
+เวอร์ชันนี้ไม่ใช้ Firebase Storage และไม่ต้องเปิด Blaze
+
+ใช้บริการ:
+- Firebase Authentication = ล็อกอินหลังบ้าน
+- Cloud Firestore = สมาชิก / โลโก้ / รูปสมาชิก / พื้นหลัง / รูปปกเพลง / การตั้งค่า
+- เพลง = ใช้ AUDIO URL โดยตรง
+
+วิธีแก้ Missing or insufficient permissions (ฟรี):
+1) เข้า Firebase Console โปรเจกต์ TATAROS
+2) กด Firestore Database
+3) เปิดแท็บ Rules
+4) เปิดไฟล์ firestore.rules ใน ZIP นี้
+5) Copy ทั้งหมดไปแทน Rules เดิม
+6) กด Publish
+7) กลับหน้า Admin > Logout > Login ใหม่ด้วย admintataro
+8) ลอง SAVE BACKGROUND อีกครั้ง
+
+ไม่ต้องเข้า Storage และไม่ต้องกด Upgrade project
+
+หมายเหตุ:
+- รูปพื้นหลัง JPG/PNG/WEBP จะถูกบีบอัดก่อนเก็บใน Firestore
+- GIF จากเครื่องต้องเล็กกว่า ~600KB เพราะ Firestore จำกัดขนาด document
+- ถ้า GIF/MP4 ใหญ่ ให้ใช้ URL โดยตรงแทน
+- MP3 ไม่ควรเก็บเป็น base64 ใน Firestore จึงใช้ URL ภายนอกเพื่อให้ยังใช้ฟรีได้

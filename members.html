@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TATAROS — Members">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TATAROS">
+  <meta property="og:title" content="TATAROS — Members">
+  <meta property="og:description" content="TATAROS Members ">
+  <meta property="og:image" content="og-preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>TATAROS — Members</title>
+  <link id="siteFavicon" rel="icon" href="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=MINIMAL2">
+  <link rel="stylesheet" href="control-public.css?v=MINIMAL2">
+  <link rel="stylesheet" href="entry-sequence.css?v=MINIMAL2">
+</head>
+<body class="members-page">
+  <script src="entry-sequence.js?v=MINIMAL2"></script>
+
+  <div class="site-backdrop" aria-hidden="true"></div>
+
+  <header class="topbar shell">
+    <a class="brand" href="index.html" aria-label="TATAROS Home">
+      <span class="brand-box">
+        <img data-site-logo-img alt="logo" hidden>
+        <span data-site-logo-fallback hidden></span>
+      </span>
+      <span class="brand-word" data-site-name>TATAROS</span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a class="active" href="members.html">Members</a>
+    </nav>
+  </header>
+
+  <main class="members-main shell">
+    <section class="members-intro members-intro-minimal">
+      <div class="members-intro-copy">
+        <div class="minimal-kicker">TATAROS</div>
+        <h1>Members</h1>
+        
+      </div>
+
+      <div class="member-summary-grid">
+        <div class="summary-tile total rank-owner">
+          <span>ทั้งหมด</span>
+          <strong id="memberCount">00</strong>
+        </div>
+        <div class="summary-tile rank-owner">
+          <span data-rank-title="owner">OWNER</span>
+          <strong id="ownerCount">00</strong>
+        </div>
+        <div class="summary-tile rank-core">
+          <span data-rank-title="core">LEADER</span>
+          <strong id="coreCount">00</strong>
+        </div>
+        <div class="summary-tile rank-support">
+          <span data-rank-title="bigsupport">BIGSUPPORT</span>
+          <strong id="supportCount">00</strong>
+        </div>
+        <div class="summary-tile rank-member">
+          <span data-rank-title="member">MEMBERS</span>
+          <strong id="memberOnlyCount">00</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="members-tools members-tools-minimal">
+      <label class="search-wrap">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.8-3.8"></path></svg>
+        <input id="memberSearch" type="text" placeholder="ค้นหาชื่อ หรือตำแหน่ง..." autocomplete="off">
+      </label>
+
+      <div class="filters" role="group" aria-label="Member rank filter">
+        <button class="filter active" data-filter="all">ทั้งหมด</button>
+        <button class="filter" data-filter="owner" data-rank-filter="owner">OWNER</button>
+        <button class="filter" data-filter="core" data-rank-filter="core">LEADER</button>
+        <button class="filter" data-filter="bigsupport" data-rank-filter="bigsupport">BIGSUPPORT</button>
+        <button class="filter" data-filter="member" data-rank-filter="member">MEMBERS</button>
+      </div>
+    </section>
+
+    <div id="loadingState" class="skeleton-loading" aria-label="Loading members">
+      <div class="skeleton-rank-line"></div>
+      <div class="skeleton-owner-card">
+        <div class="skeleton-box sk-photo"></div>
+        <div class="skeleton-copy"><div class="skeleton-line w40"></div><div class="skeleton-line w22"></div></div>
+      </div>
+      <div class="skeleton-rank-line short"></div>
+      <div class="skeleton-two"><div class="skeleton-core-card"></div><div class="skeleton-core-card"></div><div class="skeleton-core-card"></div></div>
+      <div class="skeleton-rank-line tiny"></div>
+      <div class="skeleton-five"><div class="skeleton-member-card"></div><div class="skeleton-member-card"></div><div class="skeleton-member-card"></div><div class="skeleton-member-card"></div></div>
+    </div>
+
+    <div id="firebaseNotice" class="firebase-notice" hidden><b></b><span></span></div>
+
+    <section class="rank-block rank-owner" id="ownerBlock" data-rank="owner">
+      <div class="rank-heading">
+        <div>
+          <span class="rank-dot"></span>
+          <div class="rank-title owner-title" data-rank-title="owner">OWNER</div>
+        </div>
+       
+      </div>
+      <div id="ownerList"></div>
+    </section>
+
+    <section class="rank-block rank-core" id="coreBlock" data-rank="core">
+      <div class="rank-heading">
+        <div>
+          <span class="rank-dot"></span>
+          <div class="rank-title core-title" data-rank-title="core">LEADER</div>
+        </div>
+        
+      </div>
+      <div class="core-grid" id="coreList"></div>
+    </section>
+
+    <section class="rank-block rank-support" id="supportBlock" data-rank="bigsupport">
+      <div class="rank-heading">
+        <div>
+          <span class="rank-dot"></span>
+          <div class="rank-title support-title" data-rank-title="bigsupport">BIGSUPPORT</div>
+        </div>
+      </div>
+      <div class="support-grid" id="supportList"></div>
+    </section>
+
+    <section class="rank-block rank-members" id="memberBlock" data-rank="member">
+      <div class="rank-heading">
+        <div>
+          <span class="rank-dot"></span>
+          <div class="rank-title member-title" data-rank-title="member">MEMBERS</div>
+        </div>
+     
+      </div>
+      <div class="member-grid" id="memberList"></div>
+    </section>
+
+    <div class="empty-state" id="emptyState">
+      <strong>เชื่อไอเสี่ยวนี่</strong>
+      <span>ลองเปลี่ยนคำค้นหาหรือตัวกรอง</span>
+    </div>
+  </main>
+
+  <div class="profile-overlay" id="profileOverlay"></div>
+  <section class="profile-modal" id="profileModal" aria-hidden="true">
+    <button class="profile-close" id="profileClose" type="button" aria-label="Close profile">×</button>
+
+    <div class="modal-banner">
+      <img id="modalCoverImage" alt="cover" hidden>
+      <video id="modalCoverVideo" class="modal-cover-video" muted loop playsinline hidden></video>
+      <div class="modal-banner-layer"></div>
+    </div>
+
+    <div class="modal-body-wrap">
+      <div class="modal-avatar-stack">
+        <div class="modal-photo-frame">
+          <img id="modalPhoto" alt="Member">
+          <video id="modalPhotoVideo" muted loop playsinline hidden></video>
+          <div id="modalAvatarFallback" class="modal-symbol">T</div>
+        </div>
+      </div>
+
+      <div class="modal-main">
+        <div class="modal-topline">
+          <div class="modal-badge" id="modalRole">MEMBERS</div>
+          <div class="modal-status" id="modalStatus">ONLINE</div>
+        </div>
+
+        <h2 id="modalName">TATAROS</h2>
+        <p class="modal-title" id="modalTitle">MEMBER</p>
+        <div class="modal-info-grid modal-info-grid-house">
+          <div><small>HOUSE</small><strong data-site-name>TATAROS</strong></div>
+        </div>
+
+        <div class="modal-actions">
+          <a id="modalFacebook" class="modal-action" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a id="modalDiscord" class="modal-action" href="#" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js?v=MINIMAL2"></script>
+  <script src="control-shared.js?v=MINIMAL2"></script>
+  <script src="site-settings.js?v=MINIMAL2"></script>
+  <script src="control-public.js?v=MINIMAL2"></script>
+  <script src="members-cms.js?v=MINIMAL2"></script>
+  <script src="protect.js?v=MINIMAL2"></script>
+  <script src="music-player.js?v=MINIMAL2"></script>
+  <script src="ui-effects.js?v=MINIMAL2"></script>
+</body>
+</html>

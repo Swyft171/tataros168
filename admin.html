@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>TATAROS — Admin</title>
+  <link id="siteFavicon" rel="icon" href="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=OBSIDIAN4">
+  <link rel="stylesheet" href="control-room.css?v=OBSIDIAN4">
+</head>
+<body>
+  <div class="admin-bg"></div>
+
+  <main class="admin-shell">
+    <section class="login-panel" id="loginPanel">
+      <div class="admin-logo">T</div>
+      <div class="admin-kicker">TATAROS / CONTROL PANEL</div>
+      <h1>ADMIN LOGIN</h1>
+      <p>จัดการสมาชิก โลโก้ พื้นหลัง และ Music Player ได้จากที่เดียว</p>
+
+      <form id="loginForm" class="admin-form">
+        <label>
+          <span>ADMIN ID</span>
+          <input id="loginEmail" type="text" autocomplete="username" required placeholder="admintataro">
+        </label>
+        <label>
+          <span>PASSWORD</span>
+          <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••">
+        </label>
+        <button class="primary-btn" type="submit">LOGIN</button>
+      </form>
+
+      <div class="admin-message" id="loginMessage"></div>
+      <a class="back-site" href="index.html">← BACK TO WEBSITE</a>
+    </section>
+
+    <section class="dashboard" id="dashboard" hidden>
+      <header class="admin-top">
+        <div>
+          <div class="admin-kicker">TATAROS / CONTROL PANEL</div>
+          <h1>WEBSITE MANAGER</h1>
+        </div>
+
+        <div class="admin-top-actions">
+          <a href="index.html" target="_blank" class="ghost-btn">HOME ↗</a>
+          <a href="members.html" target="_blank" class="ghost-btn">MEMBERS ↗</a>
+          <button id="logoutBtn" class="danger-btn">LOGOUT</button>
+        </div>
+      </header>
+
+      <!-- BRAND + RANK -->
+      <section class="site-settings-card">
+        <div class="section-head">
+          <div>
+            <span>SITE IDENTITY</span>
+            <h2>BRAND & RANK SETTINGS</h2>
+          </div>
+          <div class="settings-live"><i></i> FIRESTORE LIVE</div>
+        </div>
+
+        <div class="identity-grid">
+          <div class="logo-editor">
+            <div class="logo-preview">
+              <img id="logoPreview" alt="logo preview" hidden>
+              <span id="logoFallback">T</span>
+            </div>
+            <div>
+              <b>WEBSITE LOGO</b>
+              <p>โลโก้บนแถบด้านบนของ Home + Members</p>
+              <label class="upload-btn">
+                CHOOSE LOGO
+                <input id="siteLogo" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+              </label>
+              <button id="removeLogoBtn" class="tiny-btn" type="button">REMOVE LOGO</button>
+            </div>
+
+            <div class="favicon-editor">
+              <div class="favicon-preview">
+                <img id="faviconPreview" alt="website icon preview" hidden>
+                <span id="faviconFallback">T</span>
+              </div>
+              <div>
+                <b>WEBSITE ICON / FAVICON</b>
+                <p>ไอคอนบนแท็บ Browser — รองรับ PNG / WEBP โปร่งใส</p>
+                <label class="upload-btn">
+                  CHOOSE WEBSITE ICON
+                  <input id="siteFaviconInput" type="file" accept="image/png,image/webp,image/jpeg" hidden>
+                </label>
+                <button id="removeFaviconBtn" class="tiny-btn" type="button">REMOVE ICON</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="identity-fields">
+            <label>
+              <span>WEBSITE NAME</span>
+              <input id="siteName" placeholder="TATAROS">
+            </label>
+
+            <div class="rank-settings-grid">
+              <div class="rank-setting owner-setting">
+                <div class="rank-setting-title">OWNER</div>
+                <label>
+                  <span>RANK NAME</span>
+                  <input id="ownerRankName" placeholder="OWNER">
+                </label>
+                <label>
+                  <span>RANK COLOR</span>
+                  <div class="color-control">
+                    <input id="ownerRankColor" type="color" value="#d4af37">
+                    <code id="ownerColorText">#d4af37</code>
+                  </div>
+                </label>
+              </div>
+
+              <div class="rank-setting core-setting">
+                <div class="rank-setting-title">RANK 2</div>
+                <label>
+                  <span>RANK NAME</span>
+                  <input id="coreRankName" placeholder="Leader">
+                </label>
+                <label>
+                  <span>RANK COLOR</span>
+                  <div class="color-control">
+                    <input id="coreRankColor" type="color" value="#c7ad59">
+                    <code id="coreColorText">#c7ad59</code>
+                  </div>
+                </label>
+              </div>
+
+              <div class="rank-setting support-setting">
+                <div class="rank-setting-title">BIGSUPPORT</div>
+                <label>
+                  <span>RANK NAME</span>
+                  <input id="supportRankName" placeholder="BIGSUPPORT">
+                </label>
+                <label>
+                  <span>RANK COLOR</span>
+                  <div class="color-control">
+                    <input id="supportRankColor" type="color" value="#7fd6ff">
+                    <code id="supportColorText">#7fd6ff</code>
+                  </div>
+                </label>
+              </div>
+
+              <div class="rank-setting member-setting">
+                <div class="rank-setting-title">MEMBERS</div>
+                <label>
+                  <span>RANK NAME</span>
+                  <input id="memberRankName" placeholder="MEMBERS">
+                </label>
+                <label>
+                  <span>RANK COLOR</span>
+                  <div class="color-control">
+                    <input id="memberRankColor" type="color" value="#aaa69d">
+                    <code id="memberColorText">#aaa69d</code>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="hero-171-settings">
+              <div class="hero-171-settings-head">
+                <div>
+                  <b>HERO GOLD EFFECT</b>
+                  <p>ปรับโทนสีและแสงปาดของชื่อ TATAROS บนหน้า Home</p>
+                </div>
+
+                <div class="hero-171-mini-preview">
+                  <span id="hero171Preview">TATAROS</span>
+                </div>
+              </div>
+
+              <div class="hero-171-color-grid">
+                <label>
+                  <span>BASE COLOR</span>
+                  <div class="color-control">
+                    <input id="hero171Color" type="color" value="#e8d8a5">
+                    <code id="hero171ColorText">#e8d8a5</code>
+                  </div>
+                </label>
+
+                <label>
+                  <span>SHINE COLOR</span>
+                  <div class="color-control">
+                    <input id="hero171ShineColor" type="color" value="#fff1b8">
+                    <code id="hero171ShineColorText">#fff1b8</code>
+                  </div>
+                </label>
+              </div>
+
+              <div class="hero-171-speed">
+                <div class="hero-171-speed-head">
+                  <span>SHINE SPEED</span>
+                  <b id="hero171SpeedValue">6 / 10</b>
+                </div>
+                <input id="hero171Speed" type="range" min="1" max="10" step="1" value="6">
+                <div class="hero-171-speed-labels">
+                  <span>SLOW</span>
+                  <span>FAST</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="site-save-row">
+              <button id="saveIdentityBtn" class="primary-btn" type="button">SAVE BRAND & RANKS</button>
+            </div>
+            <div class="admin-message" id="identityMessage"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BACKGROUND -->
+      <section class="site-settings-card">
+        <div class="section-head">
+          <div>
+            <span>WEBSITE SETTINGS</span>
+            <h2>BACKGROUND MEDIA</h2>
+          </div>
+        </div>
+
+        <div class="background-editor">
+          <div class="background-preview">
+            <img id="backgroundPreview" alt="website background" hidden>
+            <div id="backgroundFallback">
+              <b>NO CUSTOM BACKGROUND</b>
+              <span>ใช้พื้นหลัง Default ของเว็บไซต์</span>
+            </div>
+          </div>
+
+          <div class="background-controls">
+            <div>
+              <b>รูปพื้นหลังหน้า Home + Members</b>
+              <p>รองรับ JPG / PNG / WEBP / GIF และรองรับ MP4 ผ่าน URL โดยตรง</p>
+            </div>
+
+            <label class="upload-btn">
+              CHOOSE BACKGROUND
+              <input id="backgroundImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+            </label>
+
+            <label class="media-url-group">
+              <span>GIF / MP4 URL</span>
+              <input id="backgroundMediaUrl" type="text" placeholder="https://.../background.gif or background.mp4">
+            </label>
+
+            <div class="helper-note">ใช้ฟรี: ถ้าเป็น MP4 หรือ GIF ไฟล์ใหญ่ แนะนำให้ใช้ URL ตรง เพราะ Firestore จำกัดขนาดไฟล์</div>
+
+            <div class="brightness-group">
+              <div class="brightness-head">
+                <span>BACKGROUND BRIGHTNESS</span>
+                <b id="backgroundBrightnessValue">78%</b>
+              </div>
+              <input id="backgroundBrightness" class="brightness-slider" type="range" min="20" max="120" step="1" value="78">
+              <small>เลื่อนไปซ้าย = มืดลง / เลื่อนไปขวา = สว่างขึ้น</small>
+            </div>
+
+            <label class="weather-effect-group">
+              <span>WEBSITE ATMOSPHERE</span>
+              <select id="weatherEffect">
+                <option value="snow">❄ หิมะ</option>
+                <option value="rain">╱ ฝน</option>
+                <option value="ash">◆ เถ้าถ่าน</option>
+                <option value="off">ปิดเอฟเฟกต์</option>
+              </select>
+              <small>เลือกเอฟเฟกต์ที่จะใช้บนหน้า Home และ Members</small>
+            </label>
+
+
+            <div class="background-action-row">
+              <button id="saveBackgroundBtn" class="primary-btn" type="button">SAVE BACKGROUND & EFFECT</button>
+              <button id="removeBackgroundBtn" class="danger-btn" type="button">REMOVE</button>
+            </div>
+
+            <div class="progress-wrap" id="backgroundProgress" hidden>
+              <div class="progress-bar"><div id="backgroundProgressFill"></div></div>
+              <span id="backgroundProgressText">Processing...</span>
+            </div>
+
+            <div class="admin-message" id="siteMessage"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MUSIC LIBRARY -->
+      <section class="site-settings-card music-manager-card" id="musicManagerCard">
+        <div class="section-head music-section-head">
+          <div>
+            <span>SOUND SYSTEM</span>
+            <h2>MUSIC PLAYER</h2>
+            <p class="section-description">เพิ่มเพลง ปก ชื่อ และเลือกช่วงเสียงที่จะเล่นบนหน้า Home + Members</p>
+          </div>
+          <div class="settings-live"><i></i> LIVE PLAYLIST</div>
+        </div>
+
+        <div class="free-music-note">
+          <b>FREE / SPARK MODE</b>
+          <span>ไม่ต้องเปิด Blaze และไม่ใช้ Firebase Storage — รูปปกที่เลือกจากเครื่องจะบีบอัดแล้วเก็บใน Firestore ส่วนเพลงใช้ AUDIO URL โดยตรง</span>
+        </div>
+
+        <div class="music-admin-grid">
+          <form id="trackForm" class="track-form">
+            <input type="hidden" id="trackDocId">
+
+            <div class="track-upload-row">
+              <div class="track-cover-preview" id="trackCoverPreview">
+                <img id="trackCoverPreviewImage" alt="ตัวอย่างปกเพลง" hidden>
+                <span id="trackCoverFallback">♪</span>
+              </div>
+
+              <div class="track-cover-controls">
+                <b>SONG COVER</b>
+                <p>เลือกไฟล์รูปได้เลย ระบบจะบีบอัดและเก็บรูปปกใน Firestore โดยตรง หรือใช้ URL ก็ได้</p>
+                <label class="upload-btn">
+                  CHOOSE COVER
+                  <input id="trackCoverFile" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+                </label>
+                <label class="media-url-group">
+                  <span>COVER URL / DROPBOX SHARE LINK</span>
+                  <input id="trackCoverUrl" type="url" placeholder="วางลิงก์ Share จาก Dropbox ได้เลย">
+                </label>
+              </div>
+            </div>
+
+            <div class="form-grid music-meta-grid">
+              <label>
+                <span>SONG NAME</span>
+                <input id="trackTitle" required maxlength="80" placeholder="ชื่อเพลง">
+              </label>
+              <label>
+                <span>ARTIST / SUBTITLE</span>
+                <input id="trackArtist" maxlength="80" placeholder="ชื่อศิลปิน หรือคำบรรยาย">
+              </label>
+              <label>
+                <span>DISPLAY ORDER</span>
+                <input id="trackOrder" type="number" min="0" value="100">
+              </label>
+              <label>
+                <span>VISIBLE ON WEBSITE</span>
+                <select id="trackEnabled">
+                  <option value="true">SHOW</option>
+                  <option value="false">HIDDEN</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="audio-source-box">
+              <div>
+                <b>AUDIO SOURCE</b>
+                <p>FREE MODE ใช้ลิงก์ MP3 โดยตรง เช่น Dropbox / GitHub / CDN — ไม่ต้องใช้ Firebase Storage</p>
+              </div>
+              <label class="upload-btn" hidden>
+                CHOOSE AUDIO
+                <input id="trackAudioFile" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden disabled>
+              </label>
+              <label class="media-url-group">
+                <span>AUDIO URL / DROPBOX SHARE LINK</span>
+                <input id="trackAudioUrl" type="url" placeholder="วางลิงก์ MP3 โดยตรง / Dropbox share link">
+              </label>
+              <small id="trackAudioFileName">FREE MODE: ใช้ Audio URL โดยตรง (เช่น Dropbox raw / GitHub raw / CDN)</small>
+            </div>
+
+            <div class="clip-editor">
+              <div class="clip-editor-head">
+                <div>
+                  <b>SELECT SONG SECTION</b>
+                  <p>กำหนดวินาทีเริ่มและจบ หรือเล่นตัวอย่างแล้วกด SET จากตำแหน่งปัจจุบัน</p>
+                </div>
+                <span id="trackDurationLabel">00:00</span>
+              </div>
+
+              <audio id="trackPreviewAudio" controls preload="metadata"></audio>
+
+              <div class="clip-time-grid">
+                <label>
+                  <span>START AT (SECONDS)</span>
+                  <input id="trackStart" type="number" min="0" step="0.1" value="0">
+                </label>
+                <label>
+                  <span>END AT (SECONDS)</span>
+                  <input id="trackEnd" type="number" min="0" step="0.1" placeholder="จนจบเพลง">
+                </label>
+              </div>
+
+              <div class="clip-slider-group">
+                <label>
+                  <span>START POINT</span>
+                  <input id="trackStartRange" type="range" min="0" max="100" step="0.1" value="0">
+                </label>
+                <label>
+                  <span>END POINT</span>
+                  <input id="trackEndRange" type="range" min="0" max="100" step="0.1" value="100">
+                </label>
+              </div>
+
+              <div class="clip-actions">
+                <button id="setTrackStartBtn" class="tiny-btn" type="button">SET CURRENT AS START</button>
+                <button id="setTrackEndBtn" class="tiny-btn" type="button">SET CURRENT AS END</button>
+                <button id="previewClipBtn" class="ghost-btn" type="button">▶ PREVIEW SELECTED CLIP</button>
+              </div>
+            </div>
+
+            <div class="progress-wrap" id="trackUploadProgress" hidden>
+              <div class="progress-bar"><div id="trackUploadProgressFill"></div></div>
+              <span id="trackUploadProgressText">Uploading...</span>
+            </div>
+
+            <div class="save-row">
+              <button class="primary-btn" type="submit" id="saveTrackBtn">SAVE TRACK</button>
+              <button class="ghost-btn" type="button" id="cancelTrackEditBtn" hidden>CANCEL EDIT</button>
+            </div>
+            <div class="admin-message" id="trackFormMessage"></div>
+          </form>
+
+          <div class="track-library-panel">
+            <div class="track-library-head">
+              <div>
+                <span>LIVE DATABASE</span>
+                <h3>PLAYLIST</h3>
+              </div>
+              <div class="total-chip"><b id="adminTrackCount">00</b> TRACKS</div>
+            </div>
+            <div id="adminTrackList" class="admin-track-list"></div>
+            <div id="adminTrackEmpty" class="admin-empty">ยังไม่มีเพลง</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="dashboard-grid">
+        <!-- MEMBER EDITOR -->
+        <section class="editor-card">
+          <div class="section-head">
+            <div>
+              <span>MEMBER EDITOR</span>
+              <h2 id="formTitle">ADD MEMBER</h2>
+            </div>
+            <button id="resetBtn" class="icon-btn" type="button">↺</button>
+          </div>
+
+          <form id="memberForm" class="member-form">
+            <input type="hidden" id="memberDocId">
+
+            <div class="image-upload-area">
+              <div class="image-preview">
+                <img id="imagePreview" alt="profile preview" hidden>
+                <span id="imageFallback">IMG</span>
+              </div>
+              <div>
+                <b>PROFILE IMAGE</b>
+                <p>รูปหลักบนการ์ดและฝั่งซ้ายของ Popup</p>
+                <label class="upload-btn">
+                  CHOOSE PROFILE
+                  <input id="memberImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                </label>
+                <label class="media-url-group">
+                  <span>PROFILE GIF / MP4 URL</span>
+                  <input id="memberImageUrl" type="text" placeholder="https://.../member.gif or member.mp4">
+                </label>
+              </div>
+            </div>
+
+            <div class="image-upload-area emblem-upload-area" id="emblemUploadArea" hidden>
+              <div class="image-preview emblem-preview">
+                <img id="emblemPreview" alt="owner left image preview" hidden>
+                <span id="emblemFallback">✦</span>
+              </div>
+              <div>
+                <b>OWNER LEFT IMAGE</b>
+                <p>รูปช่องซ้ายในการ์ด OWNER</p>
+                <label class="upload-btn">
+                  CHOOSE LEFT IMAGE
+                  <input id="memberEmblem" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                </label>
+                <label class="media-url-group">
+                  <span>OWNER LEFT GIF / MP4 URL</span>
+                  <input id="memberEmblemUrl" type="text" placeholder="https://.../owner-left.gif or .mp4">
+                </label>
+                <button id="clearEmblemBtn" class="tiny-btn" type="button">USE PROFILE AS FALLBACK</button>
+              </div>
+            </div>
+
+            <div class="image-upload-area cover-upload-area">
+              <div class="cover-preview">
+                <img id="coverPreview" alt="popup cover preview" hidden>
+                <span id="coverFallback">COVER</span>
+              </div>
+              <div>
+                <b>PROFILE POPUP COVER</b>
+                <p>ภาพ Cover ด้านหลังข้อมูลใน Popup ของสมาชิกคนนี้</p>
+                <label class="upload-btn">
+                  CHOOSE COVER
+                  <input id="memberCover" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                </label>
+                <label class="media-url-group">
+                  <span>POPUP COVER GIF / MP4 URL</span>
+                  <input id="memberCoverUrl" type="text" placeholder="https://.../popup-cover.gif or .mp4">
+                </label>
+                <button id="clearCoverBtn" class="tiny-btn" type="button">REMOVE COVER</button>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                <span>NAME</span>
+                <input id="memberName" required placeholder="TATAROS">
+              </label>
+
+              <label>
+                <span>NUMBER</span>
+                <input id="memberNumber" required maxlength="8" placeholder="01">
+              </label>
+
+              <label>
+                <span>ROLE</span>
+                <select id="memberRole" required>
+                  <option value="owner">OWNER</option>
+                  <option value="core">RANK 2</option>
+                  <option value="bigsupport">BIGSUPPORT</option>
+                  <option value="member" selected>MEMBER</option>
+                </select>
+              </label>
+
+              <label>
+                <span>VISIBLE ON WEBSITE</span>
+                <select id="memberVisible">
+                  <option value="true">SHOW</option>
+                  <option value="false">HIDDEN</option>
+                </select>
+              </label>
+
+              <label>
+                <span>STATUS</span>
+                <select id="memberStatus">
+                  <option value="ONLINE">ONLINE</option>
+                  <option value="OFFLINE">OFFLINE</option>
+                  <option value="AWAY">AWAY</option>
+                  <option value="BUSY">BUSY</option>
+                  <option value="DND">DND</option>
+                  <option value="STREAMING">STREAMING</option>
+                </select>
+              </label>
+
+              <label>
+                <span>TITLE</span>
+                <input id="memberTitle" placeholder="House Member">
+              </label>
+              <input id="memberSince" type="hidden" value="">
+
+              <label>
+                <span>DISPLAY ORDER</span>
+                <input id="memberOrder" type="number" min="0" value="100">
+              </label>
+
+              <label hidden>
+                <span>ACCESS</span>
+                <input id="memberAccess" placeholder="STANDARD ACCESS">
+              </label>
+            </div>
+
+            <label>
+              <span>FACEBOOK URL</span>
+              <input id="memberFacebook" type="url" placeholder="https://facebook.com/...">
+            </label>
+
+            <label>
+              <span>DISCORD URL</span>
+              <input id="memberDiscord" type="url" placeholder="https://discord.gg/...">
+            </label>
+
+            <div class="toggle-grid">
+              <label class="toggle-item" hidden>
+                <input id="memberShowAccess" type="checkbox" checked>
+                <span>SHOW ACCESS IN POPUP</span>
+              </label>
+
+              <label class="toggle-item">
+                <input id="memberShowFacebook" type="checkbox" checked>
+                <span>SHOW FACEBOOK BUTTON</span>
+              </label>
+
+              <label class="toggle-item">
+                <input id="memberShowDiscord" type="checkbox" checked>
+                <span>SHOW DISCORD BUTTON</span>
+              </label>
+            </div>
+
+            <label hidden>
+              <span>ABOUT</span>
+              <textarea id="memberAbout" rows="4" placeholder="รายละเอียดสมาชิก..."></textarea>
+            </label>
+
+            <div class="save-row">
+              <button class="primary-btn" type="submit" id="saveBtn">SAVE MEMBER</button>
+              <button class="ghost-btn" type="button" id="cancelEditBtn" hidden>CANCEL EDIT</button>
+            </div>
+
+            <div class="progress-wrap" id="uploadProgress" hidden>
+              <div class="progress-bar"><div id="progressFill"></div></div>
+              <span id="progressText">Processing image...</span>
+            </div>
+
+            <div class="admin-message" id="formMessage"></div>
+          </form>
+        </section>
+
+        <!-- MEMBER LIST -->
+        <section class="list-card">
+          <div class="section-head">
+            <div>
+              <span>LIVE DATABASE</span>
+              <h2>MEMBERS</h2>
+            </div>
+            <div class="total-chip"><b id="adminCount">00</b> TOTAL</div>
+          </div>
+
+          <label class="admin-search">
+            <span>⌕</span>
+            <input id="adminSearch" placeholder="SEARCH MEMBER...">
+          </label>
+
+          <div class="admin-member-list" id="adminMemberList"></div>
+          <div class="admin-empty" id="adminEmpty">ยังไม่มีสมาชิก</div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js?v=V1112NOBLACK"></script>
+  <script src="control-shared.js?v=6"></script>
+  <script src="control-room.js?v=1"></script>
+  <script src="admin.js?v=CONTROL7"></script>
+  <script src="control-tools.js?v=6"></script>
+  <script src="music-admin.js?v=V1201FREE"></script>
+</body>
+</html>

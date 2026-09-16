@@ -1,0 +1,91 @@
+/* TATAROS Obsidian Control Desk — layout for existing control-room.js */
+.control-layout{min-height:100vh;display:grid;grid-template-columns:236px minmax(0,1fr);background:#060605}
+.control-sidebar{position:sticky;top:0;height:100vh;padding:30px 22px 22px;border-right:1px solid rgba(236,229,213,.08);background:#070706;display:flex;flex-direction:column;z-index:30}
+.control-wordmark{display:grid;grid-template-columns:16px 1fr;align-items:center;gap:13px;padding-bottom:30px;border-bottom:1px solid rgba(236,229,213,.08)}
+.control-wordmark>span{width:12px;height:12px;border:1px solid #d4af37;transform:rotate(45deg);font-size:0;position:relative}.control-wordmark>span::after{content:"";position:absolute;inset:3px;background:#d4af37}
+.control-wordmark>b{display:grid;font-size:10px;letter-spacing:.22em;color:#d6cdb8}.control-wordmark small{margin-top:5px;color:#555046;font-size:5px;letter-spacing:.16em}
+.control-section-label{padding:28px 0 12px;color:#4d4840;font-size:5px;letter-spacing:.18em}
+.control-nav{display:grid}.control-nav button{min-height:48px;border:0;border-bottom:1px solid rgba(236,229,213,.055);background:transparent;color:#696359;display:grid;grid-template-columns:28px 1fr 18px;align-items:center;text-align:left;padding:0;font-size:7px;letter-spacing:.05em;cursor:pointer;transition:.2s ease}.control-nav button>span{font:500 13px/1 "Cormorant Garamond",serif;color:#4d483f}.control-nav button>i{font:500 15px/1 "Cormorant Garamond",serif;color:#403c36;text-align:right}.control-nav button:hover{color:#b9af99}.control-nav button.active{color:#e0d6be;border-bottom-color:rgba(212,175,55,.4)}.control-nav button.active>span,.control-nav button.active>i{color:#d4af37}
+.control-sidebar-foot{margin-top:auto;padding-top:18px;border-top:1px solid rgba(236,229,213,.08)}.control-status{display:block;color:#81775f;font-size:6px}.control-sidebar-foot p{margin-top:7px;color:#4f4a42;font-size:5px;letter-spacing:.08em;word-break:break-word}
+.control-main{min-width:0}.control-topbar{min-height:112px;padding:26px 46px;display:flex;align-items:center;justify-content:space-between;gap:22px;border-bottom:1px solid rgba(236,229,213,.08);position:sticky;top:0;background:rgba(6,6,5,.91);backdrop-filter:blur(20px);z-index:24}.control-topbar>div:first-child>span{display:block;color:#575148;font-size:5px;letter-spacing:.16em}.control-topbar h1{margin-top:6px;font:500 35px/1 "Cormorant Garamond",serif;color:#ded5c0;outline:none}.control-header-actions{display:flex;gap:8px}.control-header-actions .ghost-btn,.control-header-actions .danger-btn{min-height:34px}
+.control-content{padding:0 46px 90px;max-width:1500px}.control-pane[hidden]{display:none!important}.control-pane{animation:controlIn .24s ease both;padding-top:40px}@keyframes controlIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+/* overview: editorial, not card dashboard */
+.control-intro{min-height:330px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid rgba(236,229,213,.08);position:relative;overflow:hidden}.control-intro::after{content:"T";position:absolute;right:2%;bottom:-28px;font:500 260px/.7 "Cormorant Garamond",serif;color:transparent;-webkit-text-stroke:1px rgba(212,175,55,.055)}.control-intro>span{color:#655e52;font-size:6px;letter-spacing:.18em}.control-intro h2{margin-top:12px;font:500 clamp(56px,7vw,96px)/.78 "Cormorant Garamond",serif;letter-spacing:-.045em;color:#e2dac6}.control-intro h2 span{color:#d4af37}.control-intro p{margin-top:22px;color:#696258;font-size:8px}
+.control-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:0;border-bottom:1px solid rgba(236,229,213,.08)}.control-stat{min-height:165px;border:0;border-right:1px solid rgba(236,229,213,.08);background:transparent;padding:24px 26px 20px 0;text-align:left;display:flex;flex-direction:column;justify-content:space-between;transition:.2s ease}.control-stat+ .control-stat{padding-left:26px}.control-stat:last-child{border-right:0}.control-stat:hover{background:linear-gradient(180deg,rgba(212,175,55,.025),transparent)}.control-stat>span{font-size:6px;letter-spacing:.11em;color:#625b50}.control-stat strong{font:500 56px/.9 "Cormorant Garamond",serif;color:#d8ceb6}.control-stat small{font-size:5px;letter-spacing:.13em;color:#4f4a43}
+.control-shortcuts{margin-top:34px;border-top:1px solid rgba(236,229,213,.08);border-bottom:1px solid rgba(236,229,213,.08);padding:0;display:grid;grid-template-columns:1fr repeat(3,auto);gap:0;align-items:stretch}.control-shortcuts>div{padding:20px 20px 20px 0}.control-shortcuts>div span{font-size:5px;letter-spacing:.14em;color:#575148}.control-shortcuts>div h3{font:500 22px/1 "Cormorant Garamond",serif;margin-top:6px}.control-shortcuts button{min-width:150px;border:0;border-left:1px solid rgba(236,229,213,.08);background:transparent;color:#71695d;padding:0 16px;font-size:6px;cursor:pointer}.control-shortcuts button:hover{color:#d7cda9;background:rgba(212,175,55,.02)}
+
+/* panes/forms injected by control-tools */
+.control-content .site-settings-card,.control-content .dashboard-grid,.control-content .music-manager-card{margin:0}.control-editor-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px}.control-editor-heading>div span,.control-form label>span{font-size:6px;letter-spacing:.13em;color:#625c52}.control-editor-heading h2{font:500 30px/1 "Cormorant Garamond",serif;margin-top:6px}.control-form{display:grid;gap:18px}.control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.control-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.control-span{grid-column:1/-1}.control-check,.toggle-item{display:flex!important;grid-template-columns:18px 1fr!important;align-items:center;gap:9px!important;min-height:43px;border:0;border-bottom:1px solid rgba(236,229,213,.08);padding:0;background:transparent}.control-check input,.toggle-item input{width:auto;accent-color:#d4af37}.control-help,.control-note{color:#5d574e;font-size:7px;line-height:1.7}
+.control-partner{display:grid;grid-template-columns:1fr 1.4fr auto;gap:18px;padding:14px 0;border-bottom:1px solid rgba(236,229,213,.08)}.control-partner-actions{display:flex;align-items:end;gap:6px}.control-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0}.control-role-filter{min-height:38px;border:0;border-bottom:1px solid rgba(236,229,213,.10);background:#090807;color:#857d70;padding:0 12px;font-size:7px}.control-member-select{width:auto;accent-color:#d4af37}.admin-member.has-selection{grid-template-columns:20px 46px minmax(0,1fr) auto}.control-pagination{display:flex;align-items:center;justify-content:center;gap:12px;padding:24px 0}.control-pagination span{font-size:6px;color:#625c52}
+
+.control-dialog{width:min(760px,calc(100% - 28px));max-height:88vh;margin:auto;border:1px solid rgba(212,175,55,.2);background:#080706;color:#ddd4bc;padding:0;box-shadow:0 35px 120px rgba(0,0,0,.74)}.control-dialog::backdrop{background:rgba(2,2,2,.78);backdrop-filter:blur(10px)}.control-dialog form>header{display:flex;align-items:center;justify-content:space-between;padding:19px 22px;border-bottom:1px solid rgba(236,229,213,.08)}.control-dialog h2{font:500 27px/1 "Cormorant Garamond",serif}.control-dialog fieldset{border:0;padding:22px;display:grid;gap:16px}.control-dialog textarea,.control-dialog input,.control-dialog select{width:100%}.control-shared-preview{max-height:190px;overflow:auto;border-top:1px solid rgba(236,229,213,.08);border-bottom:1px solid rgba(236,229,213,.08);padding:12px 0;color:#766f62;font-size:7px}.control-shared-preview li{padding:4px 0}
+
+@media(max-width:980px){.control-layout{grid-template-columns:1fr}.control-sidebar{position:sticky;height:auto;top:0;padding:9px 16px;border-right:0;border-bottom:1px solid rgba(236,229,213,.08);flex-direction:row;align-items:center;overflow-x:auto}.control-wordmark{border:0;border-right:1px solid rgba(236,229,213,.08);padding:0 16px 0 0;margin-right:10px;min-width:max-content}.control-wordmark b,.control-section-label,.control-sidebar-foot{display:none}.control-nav{display:flex;min-width:max-content}.control-nav button{width:auto;min-height:44px;grid-template-columns:20px auto;padding:0 10px;border-bottom:0;border-right:1px solid rgba(236,229,213,.055)}.control-nav button>i{display:none}.control-topbar{top:63px;padding:18px 24px;min-height:86px}.control-content{padding:0 22px 70px}.control-pane{padding-top:28px}.control-stats{grid-template-columns:1fr 1fr}.control-stat:nth-child(2){border-right:0}.control-stat:nth-child(3){grid-column:1/-1;border-top:1px solid rgba(236,229,213,.08)}.control-shortcuts{grid-template-columns:1fr 1fr}.control-shortcuts>div{grid-column:1/-1;border-bottom:1px solid rgba(236,229,213,.08)}.control-shortcuts button{min-height:55px;border-left:0;border-right:1px solid rgba(236,229,213,.08)}.control-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}.control-partner{grid-template-columns:1fr}.control-partner-actions{align-items:center}}
+@media(max-width:600px){.control-wordmark>span{width:10px;height:10px}.control-topbar{top:63px;padding:15px 14px}.control-topbar>div:first-child>span{display:none}.control-topbar h1{font-size:28px}.control-header-actions a{display:none}.control-content{padding:0 12px 60px}.control-intro{min-height:250px}.control-intro h2{font-size:57px}.control-intro::after{font-size:150px}.control-stats{grid-template-columns:1fr}.control-stat,.control-stat+ .control-stat{padding:20px 0;border-right:0;border-bottom:1px solid rgba(236,229,213,.08)}.control-stat:nth-child(3){grid-column:auto;border-top:0}.control-shortcuts{grid-template-columns:1fr}.control-shortcuts button{border-right:0;border-top:1px solid rgba(236,229,213,.08)}.control-grid,.control-grid.four{grid-template-columns:1fr}.control-span{grid-column:auto}.admin-member.has-selection{grid-template-columns:18px 42px 1fr}.control-editor-heading{display:grid}}
+
+/* =========================================================
+   TATAROS V4 — CONTROL ROOM READABILITY PATCH
+========================================================= */
+.control-layout{color:#eee6d7!important}
+.control-sidebar{width:auto}
+.control-wordmark>b{font-size:13px!important;color:#e9dfca!important}
+.control-wordmark small{font-size:10px!important;color:#8c8478!important}
+.control-section-label{font-size:10px!important;color:#777064!important;padding-top:24px!important}
+.control-nav button{
+  min-height:54px!important;
+  font-size:12px!important;
+  color:#a39b8e!important;
+  letter-spacing:.02em!important;
+}
+.control-nav button>span{font-size:16px!important;color:#837b6e!important}
+.control-nav button>i{font-size:16px!important;color:#6f685e!important}
+.control-nav button.active{color:#f0e4c6!important}
+.control-sidebar-foot .control-status{font-size:11px!important;color:#b4a986!important}
+.control-sidebar-foot p{font-size:10px!important;color:#7c756b!important;line-height:1.6!important}
+
+.control-topbar{min-height:118px!important;padding:28px 46px!important}
+.control-topbar>div:first-child>span{font-size:10px!important;color:#81796d!important;letter-spacing:.10em!important}
+.control-topbar h1{font-size:44px!important;color:#f0e6d2!important;line-height:1!important}
+.control-header-actions .ghost-btn,.control-header-actions .danger-btn{font-size:10px!important;min-height:38px!important}
+
+.control-content{padding:0 46px 100px!important}
+.control-pane{padding-top:54px!important}
+.control-editor-heading{margin-bottom:32px!important}
+.control-editor-heading>div span,.control-form label>span{
+  font-size:11px!important;
+  color:#91897c!important;
+  letter-spacing:.05em!important;
+}
+.control-editor-heading h2{font-size:38px!important;color:#f0e5d0!important;line-height:1.05!important}
+
+.control-form{gap:24px!important}
+.control-grid{gap:28px!important}
+.control-check,.toggle-item{min-height:50px!important}
+.control-help,.control-note{font-size:12px!important;color:#a09789!important;line-height:1.75!important}
+.control-role-filter{min-height:42px!important;font-size:12px!important;color:#b0a797!important}
+.control-partner{gap:22px!important;padding:18px 0!important}
+.control-pagination span{font-size:11px!important;color:#8c8579!important}
+
+.control-intro>span{font-size:10px!important;color:#8b8376!important}
+.control-intro p{font-size:13px!important;color:#999184!important;line-height:1.7!important}
+.control-stat>span{font-size:10px!important;color:#8d8578!important}
+.control-stat small{font-size:10px!important;color:#716a60!important}
+.control-shortcuts>div span{font-size:10px!important;color:#80786d!important}
+.control-shortcuts button{font-size:11px!important;color:#9f9688!important}
+
+.control-dialog h2{font-size:34px!important;color:#f0e5cf!important}
+.control-shared-preview{font-size:11px!important;color:#9d9588!important;line-height:1.6!important}
+
+@media(max-width:980px){
+  .control-topbar{padding:20px 24px!important;min-height:92px!important}
+  .control-topbar h1{font-size:36px!important}
+  .control-content{padding:0 22px 80px!important}
+  .control-pane{padding-top:38px!important}
+}
+@media(max-width:600px){
+  .control-nav button{font-size:11px!important}
+  .control-topbar h1{font-size:32px!important}
+  .control-content{padding:0 14px 70px!important}
+  .control-editor-heading h2{font-size:31px!important}
+}

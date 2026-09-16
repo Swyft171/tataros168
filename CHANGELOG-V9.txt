@@ -1,0 +1,11 @@
+TATAROS V9 — BIGSUPPORT
+
+- เพิ่มยศ BIGSUPPORT ระหว่าง Leader และ Members
+- เพิ่ม BIGSUPPORT ในตัวกรองหน้า Members
+- เพิ่มตัวนับ BIGSUPPORT
+- เพิ่ม BIGSUPPORT ในฟอร์มเพิ่ม/แก้สมาชิกหลังบ้าน
+- เพิ่ม BIGSUPPORT ในเครื่องมือเพิ่มสมาชิกหลายคนและตัวกรองหลังบ้าน
+- เพิ่มการตั้งชื่อยศ BIGSUPPORT และสี BIGSUPPORT จากหลังบ้าน
+- สี BIGSUPPORT มีผลกับหัวข้อยศ ป้ายยศ และปุ่ม OPEN PROFILE
+- ลบ Joined / 2026 ออกจากการ์ดทุกยศ
+- ระบบสร้างสมาชิกใหม่ไม่ใส่ปี 2026 อัตโนมัติอีก

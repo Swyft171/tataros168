@@ -14,5 +14,5 @@ V10
 - Member lists now sort A-Z by name on public and control pages.
 - Admin entry renamed from admin.html to tataros-control-168.html; Firebase login protection remains enabled.
 
-- Admin login: ADMIN ID admin maps internally to tataros168@gmail.com
+- Admin login: ADMIN ID admin maps internally to admin@tataros168.com
 - Friendly login error: ADMIN ID หรือ PASSWORD ไม่ถูกต้อง

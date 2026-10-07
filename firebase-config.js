@@ -9,6 +9,6 @@ window.SWYFT_FIREBASE_CONFIG = {
 };
 
 // ADMIN ID "admin" จะถูกแปลงเป็นอีเมลนี้ภายในอัตโนมัติ
-window.SWYFT_ADMIN_EMAIL = "tataros168@gmail.com";
+window.SWYFT_ADMIN_EMAIL = "admin@tataros168.com";
 
 window.SWYFT_ADMIN_ALIAS = "admin";

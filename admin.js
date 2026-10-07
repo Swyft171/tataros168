@@ -303,7 +303,19 @@
         throw new Error("บัญชีนี้ไม่ได้รับสิทธิ์ Admin");
       }
     } catch (err) {
-      message(loginMessage, err.message, "error");
+      const code = String(err && err.code || "");
+      const msg = String(err && err.message || "");
+
+      if (code === "auth/invalid-credential" ||
+          code === "auth/wrong-password" ||
+          code === "auth/user-not-found" ||
+          code === "auth/invalid-email") {
+        message(loginMessage, "ADMIN ID หรือ PASSWORD ไม่ถูกต้อง", "error");
+      } else if (msg === "ADMIN ID ไม่ถูกต้อง") {
+        message(loginMessage, "ADMIN ID หรือ PASSWORD ไม่ถูกต้อง", "error");
+      } else {
+        message(loginMessage, msg || "เข้าสู่ระบบไม่สำเร็จ", "error");
+      }
     }
   });
 

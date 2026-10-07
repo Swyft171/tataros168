@@ -318,10 +318,16 @@
     supportList.innerHTML = "";
     memberList.innerHTML = "";
 
-    const owners = visible.filter(m => m.role === "owner");
-    const cores = visible.filter(m => m.role === "core");
-    const supports = visible.filter(m => m.role === "bigsupport");
-    const members = visible.filter(m => m.role === "member");
+    const byNameAZ = (a, b) => String(a?.name || "").localeCompare(
+      String(b?.name || ""),
+      ["en", "th"],
+      { sensitivity: "base", numeric: true }
+    );
+
+    const owners = visible.filter(m => m.role === "owner").sort(byNameAZ);
+    const cores = visible.filter(m => m.role === "core").sort(byNameAZ);
+    const supports = visible.filter(m => m.role === "bigsupport").sort(byNameAZ);
+    const members = visible.filter(m => m.role === "member").sort(byNameAZ);
 
     const ownerCountEl = $("#ownerCount");
     const coreCountEl = $("#coreCount");

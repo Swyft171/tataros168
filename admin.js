@@ -936,7 +936,11 @@
         .map(v => String(v || "").toLowerCase())
         .join(" ")
         .includes(term)
-    );
+    ).sort((a, b) => String(a?.name || "").localeCompare(
+      String(b?.name || ""),
+      ["en", "th"],
+      { sensitivity: "base", numeric: true }
+    ));
 
     adminMemberList.innerHTML = "";
     adminCount.textContent = String(members.length).padStart(2, "0");

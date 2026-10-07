@@ -9,3 +9,7 @@ TATAROS V9 — BIGSUPPORT
 - สี BIGSUPPORT มีผลกับหัวข้อยศ ป้ายยศ และปุ่ม OPEN PROFILE
 - ลบ Joined / 2026 ออกจากการ์ดทุกยศ
 - ระบบสร้างสมาชิกใหม่ไม่ใส่ปี 2026 อัตโนมัติอีก
+
+V10
+- Member lists now sort A-Z by name on public and control pages.
+- Admin entry renamed from admin.html to tataros-control-168.html; Firebase login protection remains enabled.

@@ -273,12 +273,19 @@
   }
 
   function normalizeAdminLogin(value) {
-    const raw = String(value || "").trim();
-    const alias = String(window.SWYFT_ADMIN_ALIAS || "admintataro").trim().toLowerCase();
-    const allowed = String(window.SWYFT_ADMIN_EMAIL || "").trim();
-    if (!raw) return raw;
-    if (raw.toLowerCase() === alias) return allowed;
-    return raw;
+    const raw = String(value || "").trim().toLowerCase();
+    const alias = String(window.SWYFT_ADMIN_ALIAS || "admin").trim().toLowerCase();
+    const allowedEmail = String(window.SWYFT_ADMIN_EMAIL || "").trim();
+
+    // หน้า Login รับเฉพาะ ADMIN ID เท่านั้น
+    // ผู้ใช้ไม่ต้องกรอกหรือเห็นอีเมล Firebase
+    if (raw !== alias) {
+      throw new Error("ADMIN ID ไม่ถูกต้อง");
+    }
+    if (!allowedEmail) {
+      throw new Error("ยังไม่ได้ตั้งค่าอีเมล Admin ใน Firebase config");
+    }
+    return allowedEmail;
   }
 
   loginForm.addEventListener("submit", async e => {
@@ -303,7 +310,7 @@
   logoutBtn.addEventListener("click", () => auth.signOut());
 
   auth.onAuthStateChanged(user => {
-    window.dispatchEvent(new CustomEvent('swyft:admin-auth', {detail: isAllowedAdmin(user) ? {email: user.email, uid: user.uid, alias: String(window.SWYFT_ADMIN_ALIAS || 'admintataro')} : null}));
+    window.dispatchEvent(new CustomEvent('swyft:admin-auth', {detail: isAllowedAdmin(user) ? {email: user.email, uid: user.uid, alias: String(window.SWYFT_ADMIN_ALIAS || 'admin')} : null}));
     if (isAllowedAdmin(user)) {
       loginPanel.hidden = true;
       dashboard.hidden = false;

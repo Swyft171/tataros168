@@ -10,4 +10,4 @@ window.SWYFT_FIREBASE_CONFIG = {
 
 window.SWYFT_ADMIN_EMAIL = "tataros168@gmail.com";
 
-window.SWYFT_ADMIN_ALIAS = "admintataros";
+window.SWYFT_ADMIN_ALIAS = "admin";
